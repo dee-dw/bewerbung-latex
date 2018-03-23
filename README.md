@@ -33,12 +33,12 @@ Befehle ebenfalls deutschsprachig verfasst.
 
 Das Archiv der Bewerbungsvorlage enthält vier Dateien:
 
-* '''bewerbung.tex''' – Die eigentliche Bewerbungsvorlage. Nur hierin werden Daten geändert.
-* '''befehle.tex''' – Die benötigten Pakete und Befehle. Diese Datei nicht anfassen!
-* '''foto-bewerber.png''' – Das (optionales) Bewerberfoto.
-* '''signatur-bewerber.png''' – Die (optionale) eingescannte Unterschrift.
+* **bewerbung.tex** – Die eigentliche Bewerbungsvorlage. Nur hierin werden Daten geändert.
+* **befehle.tex** – Die benötigten Pakete und Befehle. Diese Datei nicht anfassen!
+* **foto-bewerber.png** – Das (optionales) Bewerberfoto.
+* **signatur-bewerber.png** – Die (optionale) eingescannte Unterschrift.
 
-Wie geschrieben muss ein Bewerber nur die Datei '''bewerbung.tex'''
+Wie geschrieben muss ein Bewerber nur die Datei **bewerbung.tex**
 anpassen.
 
 ## Aufbau der Bewerbung
@@ -51,6 +51,6 @@ Die Bewerbung gliedert sich in fünf Teile:
 * Motivationsseite
 * Anlagenverzeichnis
 
-Die Datei '''bewerbung.tex''' ist entsprechend mit Kommentaren zum Ausfüllen
+Die Datei **bewerbung.tex** ist entsprechend mit Kommentaren zum Ausfüllen
 versehen.
 
