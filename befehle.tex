@@ -21,6 +21,7 @@
 \usepackage{ngerman}          % deutsche Silbentrennung
 \usepackage{scrlayer-scrpage} % Seitenlayout festlegen
 \usepackage{graphicx}         % Einbindung von Grafiken
+\usepackage[dvipsnames]{xcolor} % Farbdefinitionen
 \usepackage{textcomp}         % Euro-Zeichen und andere
 \usepackage{pdfpages}         % PDF-Seiten einbinden
 \usepackage{xifthen}          % Wenn-dann-Abfragen
@@ -74,6 +75,7 @@ linkcolor=black
 \newcommand*{\DefDetails}{}
 \newcommand*{\DefAusbildungsgrad}{}
 \newcommand*{\DefUnterschriftenDatei}{}
+\newcommand*{\DefUnterschriftenDateiParam}{}
 \newcommand*{\DefBewerberFoto}{}
 \newcommand*{\DefBewerberFotoParam}{}
 
@@ -83,18 +85,21 @@ linkcolor=black
 \newcommand*{\AbsenderPLZOrt}[1]{\renewcommand*{\DefAbsenderPLZOrt}{#1}}
 \newcommand*{\Telefon}[1]{\renewcommand*{\DefTelefon}{#1}}
 \newcommand*{\EMail}[2][black]{%
-\hypersetup{urlcolor=#1}%
-\renewcommand*{\DefEMail}{#2}%
+    \hypersetup{urlcolor=#1}%
+    \renewcommand*{\DefEMail}{#2}%
 }
 \newcommand*{\OrtDatum}[1]{\renewcommand*{\DefOrtDatum}{#1}}
 \newcommand*{\Geburtstag}[1]{\renewcommand*{\DefGeburtstag}{#1}}
 \newcommand*{\Geburtsort}[1]{\renewcommand*{\DefGeburtsort}{#1}}
 \newcommand*{\Details}[1]{\renewcommand*{\DefDetails}{#1}}
 \newcommand*{\Ausbildungsgrad}[1]{\renewcommand*{\DefAusbildungsgrad}{#1}}
-\newcommand*{\UnterschriftenDatei}[1]{\renewcommand*{\DefUnterschriftenDatei}{#1}}
+\newcommand*{\UnterschriftenDatei}[2][5cm]{%
+    \renewcommand*{\DefUnterschriftenDateiParam}{width=#1}%
+    \renewcommand*{\DefUnterschriftenDatei}{#2}%
+}
 \newcommand*{\BewerberFoto}[2][6cm]{%
-\renewcommand*{\DefBewerberFotoParam}{height=#1}%
-\renewcommand*{\DefBewerberFoto}{#2}%
+    \renewcommand*{\DefBewerberFotoParam}{height=#1}%
+    \renewcommand*{\DefBewerberFoto}{#2}%
 }
 
 % Absender
@@ -233,7 +238,7 @@ linkcolor=black
     \ifthenelse{\equal{\DefUnterschriftenDatei}{}}{%
         \vspace{2\baselineskip}%
     }{%
-        \includegraphics{\DefUnterschriftenDatei}%
+        \expandafter\includegraphics\expandafter[\DefUnterschriftenDateiParam]{\DefUnterschriftenDatei}%
     }
 }
 
@@ -259,6 +264,10 @@ linkcolor=black
 \newcommand*{\DefUeberschriftGroesse}{\LARGE}%
 \newcommand*{\UeberschriftGroesse}[1]{\renewcommand*{\DefUeberschriftGroesse}{#1}}
 
+% Farbe fuer Ueberschrift
+\newcommand*{\DefUeberschriftFarbe}{Black}%
+\newcommand*{\UeberschriftFarbe}[1]{\renewcommand*{\DefUeberschriftFarbe}{#1}}
+
 % Interne Umgebung fuer die Darstellung der Ueberschrift
 \newenvironment*{AbschnittIntern}{%
     \ifthenelse{\equal{\DefUeberschriftAusrichtung}{mittig}}{%
@@ -269,7 +278,7 @@ linkcolor=black
         }{%
         }%
     }%
-    \normalfont\DefUeberschriftGroesse\scshape%
+    \color{\DefUeberschriftFarbe}\normalfont\DefUeberschriftGroesse\scshape%
 }{%
     \\%
     \ifthenelse{\equal{\DefUeberschriftAusrichtung}{mittig}}{%
@@ -287,14 +296,20 @@ linkcolor=black
     \addcontentsline{toc}{section}{#1}%
 }
 
+% Farbe fuer Abschnitte und Linien
+\newcommand*{\DefAbschnittFarbe}{Black}%
+\newcommand*{\DefAbschnittLinienFarbe}{Black}
+\newcommand*{\AbschnittFarbe}[1]{\renewcommand*{\DefAbschnittFarbe}{#1}}
+\newcommand*{\AbschnittLinienFarbe}[1]{\renewcommand*{\DefAbschnittLinienFarbe}{#1}}
+
 % Unterabschnitte im Lebenslauf und Anlagenverzeichnis
 \newcommand*{\Unterabschnitt}[1]{%
 \phantomsection%
 \ifthenelse{\boolean{UnterabschnittBuendig}}{%
     \hspace{\LenEinschubCV}%
 }{}%
-{\normalfont\Large\bfseries\scshape #1}%
-\vskip-\baselineskip\hrulefill\\[-0.5\baselineskip]%
+{\normalfont\Large\bfseries\scshape\textcolor{\DefAbschnittFarbe}{#1}}%
+\vskip-\baselineskip\textcolor{\DefAbschnittLinienFarbe}{\hrulefill}\\[-0.5\baselineskip]%
 \addcontentsline{toc}{subsection}{#1}%
 }
 

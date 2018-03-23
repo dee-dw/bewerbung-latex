@@ -1,5 +1,11 @@
 CHANGELOG für Bewerbungsvorlage von Dominik Wagenführ
 
+= 23.03.2018 =
+
+* Unterschriftbreite mit optionalem Argument einstellbar (Anregung von Julian)
+* Farbeinstellung für Überschriften, Abschnitte und Linien unter den Abschnitten (Anregung von Julian)
+* Lizenzdatei hinzugefügt
+
 = 25.02.2018 =
 
 * kleinere Korrekturen (Einrückung bei Lebenslauf, Seitenumbruch persönliche Seite)

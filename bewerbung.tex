@@ -43,7 +43,9 @@
 % Die Unterschrift sollte als Bilddatei vorliegen.
 % Leer lassen oder auskommentieren, wenn keine Signatur eingebunden
 % werden soll.
-\UnterschriftenDatei{signatur-bewerber.png}           % optional
+% Als Option kann man die Breite der Unterschrift angeben.
+% Eine Breite von 5cm ist der Standard.
+\UnterschriftenDatei[5cm]{signatur-bewerber.png}           % optional
 
 % Das Bewerberfoto.
 % Leer lassen oder auskommentieren, wenn keine Foto auf
@@ -127,6 +129,14 @@
     % Hinweis Ende – nach dem Lesen löschen!
 \end{Anschreiben}
 
+% Optional kann man die Farbe fuer die Ueberschriften ab hier festlegen.
+% Dazu zaehlt auch die eigene Seite.
+% Als Optionen kann man die normalen LaTeX-Farben verwenden (Englisch):
+% https://en.wikibooks.org/wiki/LaTeX/Colors
+% Per Standard wird "Black" (Schwarz) verwendet.
+% Achtung: Man sollte es nicht zu bunt treiben!
+%\UeberschriftFarbe{Black}            % optional
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Meine Seite
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -156,8 +166,6 @@
 % Per Standard wird "Lebenslauf" ausgegeben.
 \UeberschriftLebenslauf{Lebenslauf}     % optional
 
-\begin{Lebenslauf}
-
 % Der Lebenslauf ist in Abschnitte unterteilt. Jeder Abschnitt hat dabei
 % einen Titel. Innerhalb des Abschnitts (zwischen "begin" und "end")
 % legt man mit \EintragCV einen Eintrag an.
@@ -166,8 +174,19 @@
 % Standard ist 8pt.
 % Das optionale Argument "buendig" gibt an, dass die Überschrift zusaetzlich
 % noch bündig zur Tabelle sein soll und nicht linksbündig per Standard.
-\EinschubCV[buendig]{8pt}
+\EinschubCV[buendig]{8pt}            % optional
 %\EinschubCV{8pt}
+
+% Optional kann man die Farbe fuer die einzelnen Abschnitte
+% und/oder fuer die Linien darunter festlegen.
+% Als Optionen kann man die normalen LaTeX-Farben verwenden (Englisch):
+% https://en.wikibooks.org/wiki/LaTeX/Colors
+% Per Standard wird "Black" (Schwarz) verwendet.
+% Achtung: Man sollte es nicht zu bunt treiben!
+\AbschnittFarbe{Blue}                  % optional
+\AbschnittLinienFarbe{Blue}            % optional
+
+\begin{Lebenslauf}
 
 \begin{AbschnittCV}{Promotion}%
 % Das erste Argument ist die Dauer, das zweite die Bezeichnung.
