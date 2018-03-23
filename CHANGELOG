@@ -1,0 +1,57 @@
+CHANGELOG für Bewerbungsvorlage von Dominik Wagenführ
+
+= 25.02.2018 =
+
+* kleinere Korrekturen (Einrückung bei Lebenslauf, Seitenumbruch persönliche Seite)
+
+= 24.02.2018 =
+
+* Bugfix: Kompiliert jetzt auch ohne Unterschrift (Hinweis an Rebecca)
+* \Ausbildungsgrad optional gemacht, falls die Ausbildung noch nicht abgeschlossen ist (Anregung von Rebecca)
+* Beispiel ergänzt für weitere \UnterabschnittCV bei den „Praktischen Tätigkeiten“ (Hinweis von olpo)
+* Umstellung des tabellarischen Lebenslaufs mit \EintragCV, dadurch ist das "longtable"-Paket weggefallen.
+* Letzte Seite des Lebenslaufs vergrößert, damit die Unterschrift besser auf die Seite passt (Anregung von Willi)
+
+= 24.09.2017 =
+
+* Bugfix: korrekte Leerzeichen bei Anrede je nach Angaben von Vorname, Nachname und Titel (Hinweis von Alex)
+* Überschriftausrichtung durch \UeberschriftAusrichtung und Überschriftgröße durch \UeberschriftGroesse optional einstellbar gemacht (Anregung von Josi)
+
+= 10.07.2017 =
+
+* Überschrift im Lebenslauf variabel gemacht über \UeberschriftLebenslauf (Anregung von Miriam)
+* zweiten Ansprechpartner ergänzt (Anregung von Bernd)
+
+= 12.02.2017 =
+
+* Titel für Adressat mit eingebracht (Anregung von Anja)
+
+= 22.03.2016 =
+
+* Man kann jetzt für das Foto die Höhe einstellen, falls der vordefinierte Wert zu groß oder zu klein ist.
+* Durch Einbinden des Paketes "textcomp" sind einige Sonderzeichen (wie €) verfügbar.
+* Die E-Mailadresse wird automatisch verlinkt. Und man kann optional eine Farbe angeben, mit der sie dargestellt werden soll.
+* Anlagen können über die Option quer im Querformat eingebunden werden.
+* Wenn man den Dateiname im Anlageverzeichnis mit angibt, dann wird die eingebundene Anlage gleich mit verlinkt.
+* Die Bewerbung kann nun auch mit XeTeX und LuaTeX übersetzt werden.
+* Leider funktioniert Bitstream Charter als Schrift bei mir unter XeTeX nicht. Daher habe ich per Standard auf TeX Gyre Pagella umgestellt, die auch sehr gut aussieht. Zusätzlich kann man die Schrift jetzt auch selbst definieren, wenn es notwendig ist. Mit XeTeX/LuaTeX kann man dabei sogar alle Systemschriften nutzen.
+* Es wurde ja schon länger bemängelt, dass fancyhdr nicht kompatibel zu KOMA-Script ist. Daher nutze ich jetzt die KOMA-eigenen Makros über "scrlayer-scrpage". In dem Zuge ist auch das inkompatible "titlesec"-Paket weggefallen.
+
+= 02.05.2015 =
+
+* weniger LaTeX-interne Befehle, alle definierten Befehle auf Deutsch
+* mehr Kommentare
+* Bild und Unterschrift leicht ausblendbar
+* Anschreiben auch mit „Damen und Herren“ möglich
+* Vergrößerung der Anschreibenseite bei viel Text
+
+= 06.11.2011 =
+
+* Längen sind nun echte Längen, keine Befehle mehr
+* zwischen den Adressen im Anschreiben kann man nun variabel Platz lassen
+* im Lebenslauf kann man Unterabschnitte einfügen mit weiteren Daten zu einem Punkt (Beispiele in der tex-Datei vorhanden)
+* durch das Paket lmodern mal die neuen Schriften benutzt, die besser aussehen
+
+= 24.10.2009 =
+
+* Initialversion
