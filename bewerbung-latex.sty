@@ -2,37 +2,40 @@
 % Dieses Dokument unterliegt der Creative-Commons-Lizenz
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{bewerbung-latex}[2018/05/11 v1.0]
+\DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
+\ExecuteOptions{final,indexauto}
+\ProcessOptions*\relax
 
 % Pakete
-\usepackage{ifxetex,ifluatex}
+\RequirePackage{iftex}
 % Herausfinden, ob XeTeX oder LuaTeX benutzt wird. Abhaengig von der
 % Engine muessen andere Schriftpakete geladen werden
-\ifluatex
-  \usepackage{fontspec}          % UTF8-Kodierung
-  \setmainfont{TeX Gyre Pagella} % Pagella-Schrift
-\else\ifxetex
-  \usepackage{fontspec}          % UTF8-Kodierung
-  \setmainfont{TeX Gyre Pagella} % Pagella-Schrift
-\else
-  \usepackage[utf8]{inputenc}   % UTF8-Kodierung für Umlaute
-  \usepackage[T1]{fontenc}      % use TeX encoding then Type 1.
-  \usepackage{tgpagella}        % Pagella-Schrift
-\fi\fi
-\usepackage{ngerman}          % deutsche Silbentrennung
-\usepackage{scrlayer-scrpage} % Seitenlayout festlegen
-\usepackage{graphicx}         % Einbindung von Grafiken
-\usepackage[dvipsnames]{xcolor} % Farbdefinitionen
-\usepackage{textcomp}         % Euro-Zeichen und andere
-\usepackage{pdfpages}         % PDF-Seiten einbinden
-\usepackage{xifthen}          % Wenn-dann-Abfragen
-\usepackage{array}            % Kommandos in Tabellenspalten
-\usepackage{ulem}             % Unterstreichen
-\usepackage{setspace}         % Zeilenabstand festlegen
-\usepackage{hyperref}         % Hyperlinks und interne PDF-Verweise
+\ifPDFTeX%
+    \RequirePackage[utf8]{inputenc}   % UTF8-Kodierung für Umlaute
+    \RequirePackage[T1]{fontenc}      % use TeX encoding then Type 1.
+    \RequirePackage{tgpagella}        % Pagella-Schrift
+\else%
+    \RequirePackage{fontspec}          % UTF8-Kodierung
+    \setmainfont{TeX Gyre Pagella} % Pagella-Schrift
+\fi%
+\RequirePackage[ngerman]{babel}   % deutsche Silbentrennung
+\RequirePackage{microtype}        % verbesserte Typographie
+\RequirePackage{scrlayer-scrpage} % Seitenlayout festlegen
+\RequirePackage{graphicx}         % Einbindung von Grafiken
+\RequirePackage[dvipsnames]{xcolor} % Farbdefinitionen
+\RequirePackage{textcomp}         % Euro-Zeichen und andere
+\RequirePackage{pdfpages}         % PDF-Seiten einbinden
+\RequirePackage{xifthen}          % Wenn-dann-Abfragen
+\RequirePackage{array}            % Kommandos in Tabellenspalten
+\RequirePackage{ulem}             % Unterstreichen
+\RequirePackage{setspace}         % Zeilenabstand festlegen
+\RequirePackage{hyperref}         % Hyperlinks und interne PDF-Verweise
 \hypersetup{%
-colorlinks=true,
-urlcolor=black,
-linkcolor=black
+    colorlinks=true,
+    urlcolor=black,
+    linkcolor=black
 }%
 
 % Layout
@@ -51,14 +54,12 @@ linkcolor=black
 
 % Neue Schrift setzen.
 \newcommand{\SetzeSchrift}[2]{%
-\ifluatex
-  \setmainfont{#2}
-\else\ifxetex
-  \setmainfont{#2}
-\else
-  \usepackage{#1}
-\fi\fi
-}
+    \ifPDFTeX%
+        \RequirePackage{#1}
+    \else%
+        \setmainfont{#2}
+    \fi%
+}%
 
 % Definition des heutigen Datums
 \newcommand*{\HeutigerTag}{\today}
@@ -96,11 +97,11 @@ linkcolor=black
 \newcommand*{\UnterschriftenDatei}[2][5cm]{%
     \renewcommand*{\DefUnterschriftenDateiParam}{width=#1}%
     \renewcommand*{\DefUnterschriftenDatei}{#2}%
-}
+}%
 \newcommand*{\BewerberFoto}[2][6cm]{%
     \renewcommand*{\DefBewerberFotoParam}{height=#1}%
     \renewcommand*{\DefBewerberFoto}{#2}%
-}
+}%
 
 % Absender
 \newcommand{\Absender}[1][\normalsize]{%
@@ -109,7 +110,7 @@ linkcolor=black
     \rightline{\DefAbsenderPLZOrt}
     \rightline{\DefTelefon}
     \rightline{\href{mailto:\DefEMail}{\DefEMail}}
-}
+}%
 
 % Definitionen zum Empfaenger
 \newcommand*{\DefFirma}{}
@@ -143,7 +144,7 @@ linkcolor=black
     }{%
         \renewcommand*{\DefAdressatTitelKurz}{#1 }%
     }%
-}
+}%
 \newcommand*{\AdressatVorname}[1]{\renewcommand*{\DefAdressatVorname}{#1}}
 \newcommand*{\AdressatNachname}[1]{\renewcommand*{\DefAdressatNachname}{#1}}
 \newcommand*{\AnschriftStrasse}[1]{\renewcommand*{\DefAnschriftStrasse}{#1}}
@@ -165,7 +166,7 @@ linkcolor=black
             }%
         }%
     }%
-}
+}%
 \newcommand*{\ZweiterAdressatTitel}[2][]{%
     \ifthenelse{\equal{#1}{}}{%
         \renewcommand*{\DefZweiterAdressatTitel}{}%
@@ -177,9 +178,13 @@ linkcolor=black
     }{%
         \renewcommand*{\DefZweiterAdressatTitelKurz}{#1 }%
     }%
-}
-\newcommand*{\ZweiterAdressatVorname}[1]{\renewcommand*{\DefZweiterAdressatVorname}{#1}}
-\newcommand*{\ZweiterAdressatNachname}[1]{\renewcommand*{\DefZweiterAdressatNachname}{#1}}
+}%
+\newcommand*{\ZweiterAdressatVorname}[1]{%
+    \renewcommand*{\DefZweiterAdressatVorname}{#1}%
+}%
+\newcommand*{\ZweiterAdressatNachname}[1]{%
+    \renewcommand*{\DefZweiterAdressatNachname}{#1}%
+}%
 \newcommand*{\ZweiterAdressatAnrede}[1]{%
     \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{%
         \renewcommand*{\DefZweiterAdressatAnredeKopf}{}%
@@ -197,7 +202,7 @@ linkcolor=black
             }%
         }%
     }%
-}
+}%
 
 % Adressat
 \newcommand{\Anschrift}{%
@@ -225,13 +230,13 @@ linkcolor=black
     }%
     \DefAnschriftStrasse\\
     \DefAnschriftPLZOrt\\
-}
+}%
 
 % Makro für Ort und Unterschrift
 \newcommand*{\UnterschriftOrt}{%
     \Unterschrift~\\
-    \DefOrtDatum
-}
+    \DefOrtDatum%
+}%
 
 % Unterschrift als Bilddatei einfügen
 \newcommand*{\Unterschrift}{%
@@ -239,8 +244,8 @@ linkcolor=black
         \vspace{2\baselineskip}%
     }{%
         \expandafter\includegraphics\expandafter[\DefUnterschriftenDateiParam]{\DefUnterschriftenDatei}%
-    }
-}
+    }%
+}%
 
 % Ausrichtung der Ueberschrift
 \newcommand*{\DefUeberschriftAusrichtung}{links}%
@@ -258,7 +263,7 @@ linkcolor=black
             }%
         }%
     }%
-}
+}%
 
 % Schriftgroesse der Ueberschrift
 \newcommand*{\DefUeberschriftGroesse}{\LARGE}%
@@ -285,7 +290,7 @@ linkcolor=black
         \end{center}%
     }{%
     }%
-}
+}%
 
 % Abschnitt für die Hauptkapitel
 \newcommand*{\Abschnitt}[1]{%
@@ -294,7 +299,7 @@ linkcolor=black
     #1%
     \end{AbschnittIntern}
     \addcontentsline{toc}{section}{#1}%
-}
+}%
 
 % Farbe fuer Abschnitte und Linien
 \newcommand*{\DefAbschnittFarbe}{Black}%
@@ -304,14 +309,14 @@ linkcolor=black
 
 % Unterabschnitte im Lebenslauf und Anlagenverzeichnis
 \newcommand*{\Unterabschnitt}[1]{%
-\phantomsection%
-\ifthenelse{\boolean{UnterabschnittBuendig}}{%
-    \hspace{\LenEinschubCV}%
-}{}%
-{\normalfont\Large\bfseries\scshape\textcolor{\DefAbschnittFarbe}{#1}}%
-\vskip-\baselineskip\textcolor{\DefAbschnittLinienFarbe}{\hrulefill}\\[-0.5\baselineskip]%
-\addcontentsline{toc}{subsection}{#1}%
-}
+    \phantomsection%
+    \ifthenelse{\boolean{UnterabschnittBuendig}}{%
+        \hspace{\LenEinschubCV}%
+    }{}%
+    {\normalfont\Large\bfseries\scshape\textcolor{\DefAbschnittFarbe}{#1}}%
+    \vskip-\baselineskip\textcolor{\DefAbschnittLinienFarbe}{\hrulefill}\\[-0.5\baselineskip]%
+    \addcontentsline{toc}{subsection}{#1}%
+}%
 
 % Ueberschrift im Lebenslauf festlegen.
 % Definitionen zum Empfaenger
@@ -319,8 +324,7 @@ linkcolor=black
 \newcommand*{\UeberschriftLebenslauf}[1]{\renewcommand*{\DefUeberschriftLebenslauf}{#1}}
 
 % Lebenslauf
-\newenvironment{Lebenslauf}
-{%
+\newenvironment{Lebenslauf}{%
     \Abschnitt{\DefUeberschriftLebenslauf}
 }{%
     % Seite um eine Zeile vergrößern, damit Unterschrift besser draufpasst.
@@ -331,9 +335,9 @@ linkcolor=black
 
 % Seitenumbruch innerhalb des Lebenslaufs
 \newcommand*{\NeueSeiteAbschnittCV}{%
-\clearpage
-\Abschnitt{\DefUeberschriftLebenslauf}
-}
+    \clearpage
+    \Abschnitt{\DefUeberschriftLebenslauf}
+}%
 
 % Per Standard gibt es keinen Tabellenabstand.
 \setlength{\tabcolsep}{0pt}%
@@ -344,45 +348,42 @@ linkcolor=black
 \newlength{\LenEinschubCV}
 \setlength{\LenEinschubCV}{8pt}
 \newcommand*{\EinschubCV}[2][]{%
-\setlength{\LenEinschubCV}{#2}%
-\ifthenelse{\equal{#1}{}}{%
-    \setboolean{UnterabschnittBuendig}{false}%
-}{%
-    \setboolean{UnterabschnittBuendig}{true}%
+    \setlength{\LenEinschubCV}{#2}%
+    \ifthenelse{\equal{#1}{}}{%
+        \setboolean{UnterabschnittBuendig}{false}%
+    }{%
+        \setboolean{UnterabschnittBuendig}{true}%
+    }%
 }%
-}
 
 % Tabelle für Lebenslauf
 \newlength{\AbstandAbschnitt}
-\newenvironment{AbschnittCV}[2][0.5\baselineskip]
-{%
+\newenvironment{AbschnittCV}[2][0.5\baselineskip]{%
     \Unterabschnitt{#2}%
     
     \setlength{\AbstandAbschnitt}{#1}%
 }{%
     \vspace{\AbstandAbschnitt}%
-}
+}%
 
 % Eintrag im Lebenslauf
-\newcommand{\EintragCV}[2]
-{%
+\newcommand{\EintragCV}[2]{%
     \hspace*{\LenEinschubCV}%
     \begin{tabular}{p{0.3\linewidth}p{0.7\linewidth-\LenEinschubCV}}%
     #1 & #2%
     \end{tabular}\\[0.5\baselineskip]%
-}
+}%
 
 % Unterabschnitt in Lebenslauftabelle mit sonstigen Themen
 % Achtung, keine Umgebung, sondern ein Kommando!
 % Das optionale Argument wird nicht mehr genutzt!
 \newlength{\AbstandUnterabschnitt}
-\newcommand{\UnterabschnittCV}[3][0\baselineskip]
-{%
+\newcommand{\UnterabschnittCV}[3][0\baselineskip]{%
     \textit{#2}:
     \begin{itemize}
     #3
     \end{itemize}
-}
+}%
 
 % Anrede im Brief
 \newcommand*{\DefAnrede}{%
@@ -397,16 +398,16 @@ linkcolor=black
         \DefZweiterAdressatNachname{}%
         ,%
     }%
-}
+}%
 
 % Die Grußformel am Anschreibenende
 \newcommand{\Grussworte}{%
-Über die Einladung zu einem persönlichen Gespräch freue ich mich und verbleibe
+    Über die Einladung zu einem persönlichen Gespräch freue ich mich und verbleibe
 
-mit freundlichen Grüßen
+    mit freundlichen Grüßen
 
-\Unterschrift~\\
-}
+    \Unterschrift~\\
+}%
 
 % Definition der Bewerberstelle
 \newcommand*{\DefBewerberstelle}{}
@@ -415,7 +416,9 @@ mit freundlichen Grüßen
 \newcommand*{\Bewerberstelle}[1]{\renewcommand*{\DefBewerberstelle}{#1}}
 
 % Betreff
-\newcommand*{\Betreff}{\textbf{Bewerbung als \DefBewerberstelle}}
+\newcommand*{\Betreff}{%
+    \textbf{Bewerbung als \DefBewerberstelle}%
+}%
 
 % Etwas Abstand vor dem Ort, um die Seite besser aufteilen zu können.
 \newlength{\LenAbstandVorAnschreiben}
@@ -433,8 +436,7 @@ mit freundlichen Grüßen
 \setlength{\LenSeiteVergroessern}{0\baselineskip}
 \newcommand*{\AnschreibenSeiteVergroessern}[1]{\setlength{\LenSeiteVergroessern}{#1\baselineskip}}
 
-\newcommand{\AnschreibenKopf}
-{%
+\newcommand{\AnschreibenKopf}{%
     % Anschreiben ohne Fuss- oder Kopfzeile
     \thispagestyle{empty}
 
@@ -459,7 +461,7 @@ mit freundlichen Grüßen
         \rightline{\DefOrtDatum}
     \end{spacing}
 
-}
+}%
 
 % Abstand zwischen Unterschrift und den Anlagen im Anschreiben
 \newlength{\LenAbstandVorAnlagen}
@@ -468,12 +470,9 @@ mit freundlichen Grüßen
 
 % Definition des Textes im Anschreiben
 \newcommand{\DefAnschreibenAnlage}{}
+\newcommand{\AnschreibenAnlage}[1]{\renewcommand{\DefAnschreibenAnlage}{#1}}%
 
-% Definition zum Setzen des Textes im Anschreiben
-\newcommand{\AnschreibenAnlage}[1]{\renewcommand{\DefAnschreibenAnlage}{#1}}
-
-\newenvironment{Anschreiben}
-{%
+\newenvironment{Anschreiben}{%
     % Titel und Autor des PDFs werden automatisch festgelegt,
     % was aber erst nach der Definition des Namens geht.
     \hypersetup{%
@@ -496,10 +495,9 @@ mit freundlichen Grüßen
         \end{flushleft}
     \end{spacing}
     \clearpage
-}
+}%
 
-\newcommand{\MeineSeite}
-{%
+\newcommand{\MeineSeite}{%
     \Abschnitt{Zu meiner Person}
 
     \begin{spacing}{1.3}
@@ -519,15 +517,15 @@ mit freundlichen Grüßen
         }%
 
         \ifthenelse{\equal{\DefBewerberFoto}{}}{}{%
-            \expandafter\includegraphics\expandafter[\DefBewerberFotoParam]{\DefBewerberFoto}\\
+            \expandafter%
+            \includegraphics\expandafter[\DefBewerberFotoParam]{\DefBewerberFoto}\\
         }%
 
     \end{spacing}
     \clearpage
-}
+}%
 
-\newenvironment{Motivation}
-{%
+\newenvironment{Motivation}{%
     \Abschnitt{Über mich und meine Motivation}
  
     \begin{spacing}{1.3}
@@ -540,18 +538,20 @@ mit freundlichen Grüßen
     
     \UnterschriftOrt
     \clearpage
-}
+}%
 
 % Definition der Abschnitte
 \newcommand*{\AbschnittAnlage}[1]{%
-\vspace{\baselineskip}%
-\Unterabschnitt{#1}%
-}
+    \vspace{\baselineskip}%
+    \Unterabschnitt{#1}%
+}%
 
 % Definition der Auflistung
-\newenvironment{Auflistung}
-{\begin{itemize}}
-{\end{itemize}}
+\newenvironment{Auflistung}{%
+    \itemize%
+}{%
+    \enditemize%
+}%
 
 \newcommand{\punkt}{\item}
 
@@ -563,26 +563,24 @@ mit freundlichen Grüßen
 }{%
     \end{spacing}
     \clearpage
-}
+}%
 
 % Eine einzelne Anlage
 \newcommand*{\Anlage}[2][]{%
-\ifthenelse{\equal{#1}{}}{%
-\item #2
-}{%
-\item \hyperlink{#1.1}{\uline{#2}}
+    \ifthenelse{\equal{#1}{}}{%
+        \item #2
+    }{%
+        \item \hyperlink{#1.1}{\uline{#2}}
+    }%
 }%
-}
 
 % Anlagen einfuegen
 % Option "quer" (oder irgendein anderes Wort) für Querformat.
 \newcommand*{\AnlageEinfuegen}[2][]{%
-\ifthenelse{\equal{#1}{}}{%
-\includepdf[pages=-,link,linkname=#2]{#2}%
-}{%
-\includepdf[landscape,pages=-,link,linkname=#2]{#2}%
+    \ifthenelse{\equal{#1}{}}{%
+        \includepdf[pages=-,link,linkname=#2]{#2}%
+    }{%
+        \includepdf[landscape,pages=-,link,linkname=#2]{#2}%
+    }%
 }%
-}
-
-
-
+\endinput

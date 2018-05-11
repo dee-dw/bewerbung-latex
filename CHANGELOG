@@ -1,4 +1,8 @@
-CHANGELOG für Bewerbungsvorlage von Dominik Wagenführ
+CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
+
+= 11.05.2018 (Version 1.0) =
+
+* Umwandlung der Vorlage in eine sty-Datei, sodass man sie mit \usepackage einbinden kann (Unterstützung von Martin)
 
 = 23.03.2018 =
 
