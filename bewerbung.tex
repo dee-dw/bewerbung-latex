@@ -152,8 +152,8 @@
 % (Lebenslauf, Motivation, Anlagen) neu einstellen, aber gleichfoermiger
 % ist es, wenn man es nur einmal hier definiert.
 % Moegliche Angaben sind: links, rechts, mittig.
-% Per Standard wird "links" ausgewaehlt.
-\UeberschriftAusrichtung{links}         % optional
+% Per Standard wird "rechts" ausgewaehlt.
+\UeberschriftAusrichtung{rechts}         % optional
 
 % Schriftgroesse der Ueberschriften
 % Erlaubt sind alle Standard-Schriftgroessenangaben.
@@ -198,8 +198,16 @@
 }
 \end{AbschnittCV}
 
-\begin{AbschnittCV}{Studium}%
-\EintragCV{September 2012}{Abschluss als Diplom-Veterinärmedizinerin (Bewertung „sehr gut“) \newline
+% Ein optionales Argument von "AbschnittCV" gibt an wie viel Platz
+% unterhalb des gesamten Abschnitts gelassen wird.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Der Standard-Wert ist 0.5, also eine halbe Zeile.
+\begin{AbschnittCV}[0]{Studium}%
+% Ein optionales Argument von "EintragCV" gibt an wie viel Platz
+% unterhalb des Eintrags gelassen wird.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Der Standard-Wert ist 0.5, also eine halbe Zeile.
+\EintragCV[1]{September 2012}{Abschluss als Diplom-Veterinärmedizinerin (Bewertung „sehr gut“) \newline
                            Diplomarbeit an der Freien Universität Berlin: \newline
                            „\textit{Motorische Analyse der Klapperschlange – Bewegung und Fortpflanzung}“
 }

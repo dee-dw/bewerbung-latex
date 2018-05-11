@@ -8,6 +8,8 @@ darf damit geändert und verteilt werden, solange man den Urheber nennt und die
 Lizenz beibehält. Das aus der Vorlage erstellte PDF unterliegt natürlich 
 keinerlei Lizenzbeschränkungen.
 
+Eine detaillierte Anleitung findet man in meinem Blog unter [http://www.deesaster.org/blog/index.php?/archives/2804].
+
 ## Motivation
 
 Meine Motivation für die Erstellung der Bewerbungsvorlage war ursprünglich nur, 
@@ -53,4 +55,3 @@ Die Bewerbung gliedert sich in fünf Teile:
 
 Die Datei **bewerbung.tex** ist entsprechend mit Kommentaren zum Ausfüllen
 versehen.
-

@@ -3,6 +3,8 @@ CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 = 11.05.2018 (Version 1.0) =
 
 * Umwandlung der Vorlage in eine sty-Datei, sodass man sie mit \usepackage einbinden kann (Unterstützung von Martin)
+* Bugfix: bei Ausrichtung der Überschriften rechts und links verwechselt
+* Abstand unter Einträgen in Abschnitten im Lebenslauf kann variiert werden (Anregung von Perry)
 
 = 23.03.2018 =
 

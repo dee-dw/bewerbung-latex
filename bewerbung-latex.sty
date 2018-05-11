@@ -248,7 +248,7 @@
 }%
 
 % Ausrichtung der Ueberschrift
-\newcommand*{\DefUeberschriftAusrichtung}{links}%
+\newcommand*{\DefUeberschriftAusrichtung}{rechts}%
 \newcommand*{\UeberschriftAusrichtung}[1]{%
     \ifthenelse{\equal{#1}{links}}{%
         \renewcommand*{\DefUeberschriftAusrichtung}{#1}%
@@ -278,7 +278,7 @@
     \ifthenelse{\equal{\DefUeberschriftAusrichtung}{mittig}}{%
         \begin{center}%
     }{%
-        \ifthenelse{\equal{\DefUeberschriftAusrichtung}{links}}{%
+        \ifthenelse{\equal{\DefUeberschriftAusrichtung}{rechts}}{%
             \hspace*{\fill}%
         }{%
         }%
@@ -358,20 +358,20 @@
 
 % Tabelle für Lebenslauf
 \newlength{\AbstandAbschnitt}
-\newenvironment{AbschnittCV}[2][0.5\baselineskip]{%
+\newenvironment{AbschnittCV}[2][0.5]{%
     \Unterabschnitt{#2}%
     
-    \setlength{\AbstandAbschnitt}{#1}%
+    \setlength{\AbstandAbschnitt}{#1\baselineskip}%
 }{%
     \vspace{\AbstandAbschnitt}%
 }%
 
 % Eintrag im Lebenslauf
-\newcommand{\EintragCV}[2]{%
+\newcommand{\EintragCV}[3][0.5]{%
     \hspace*{\LenEinschubCV}%
     \begin{tabular}{p{0.3\linewidth}p{0.7\linewidth-\LenEinschubCV}}%
-    #1 & #2%
-    \end{tabular}\\[0.5\baselineskip]%
+    #2 & #3%
+    \end{tabular}\\[#1\baselineskip]%
 }%
 
 % Unterabschnitt in Lebenslauftabelle mit sonstigen Themen
