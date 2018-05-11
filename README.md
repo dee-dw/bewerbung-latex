@@ -34,7 +34,7 @@ Befehle ebenfalls deutschsprachig verfasst.
 Das Archiv der Bewerbungsvorlage enthält vier Dateien:
 
 * **bewerbung.tex** – Die eigentliche Bewerbungsvorlage. Nur hierin werden Daten geändert.
-* **befehle.tex** – Die benötigten Pakete und Befehle. Diese Datei nicht anfassen!
+* **bewerbung-latex.sty** – Die Style-Datei mit den benötigten Befehlen und Paketen. Diese Datei nicht anfassen!
 * **foto-bewerber.png** – Das (optionales) Bewerberfoto.
 * **signatur-bewerber.png** – Die (optionale) eingescannte Unterschrift.
 
