@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2018/05/11 v1.0]
+\ProvidesPackage{bewerbung-latex}[2018/10/07 v1.1]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -84,10 +84,10 @@
 \newcommand*{\VollerName}[1]{\renewcommand*{\DefVollerName}{#1}}
 \newcommand*{\AbsenderStrasse}[1]{\renewcommand*{\DefAbsenderStrasse}{#1}}
 \newcommand*{\AbsenderPLZOrt}[1]{\renewcommand*{\DefAbsenderPLZOrt}{#1}}
-\newcommand*{\Telefon}[1]{\renewcommand*{\DefTelefon}{#1}}
-\newcommand*{\EMail}[2][black]{%
+\newcommand*{\bwTelefon}[2]{\renewcommand*{\DefTelefon}{#1{} #2}}
+\newcommand*{\bwEMail}[3][black]{%
     \hypersetup{urlcolor=#1}%
-    \renewcommand*{\DefEMail}{#2}%
+    \renewcommand*{\DefEMail}{#2{} \href{mailto:#3}{#3}}%
 }
 \newcommand*{\OrtDatum}[1]{\renewcommand*{\DefOrtDatum}{#1}}
 \newcommand*{\Geburtstag}[1]{\renewcommand*{\DefGeburtstag}{#1}}
@@ -109,7 +109,7 @@
     \rightline{\DefAbsenderStrasse}
     \rightline{\DefAbsenderPLZOrt}
     \rightline{\DefTelefon}
-    \rightline{\href{mailto:\DefEMail}{\DefEMail}}
+    \rightline{\DefEMail}
 }%
 
 % Definitionen zum Empfaenger

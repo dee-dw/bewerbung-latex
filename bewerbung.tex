@@ -13,6 +13,10 @@
 % Liest die vordefinierten Befehle ein. Nicht veraendern!
 \usepackage{bewerbung-latex}
 
+% Optionales Paket, falls jemand \Telefon und \Email
+% als Symbol nutzen will.
+%\usepackage{marvosym}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Ab hier sollte man selbst Änderungen vornehmen.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -27,11 +31,17 @@
 \VollerName{Eva Mustermann}
 \AbsenderStrasse{Musterstraße 42}
 \AbsenderPLZOrt{12345 Berlin}
-\Telefon{Tel.: 0170 567890}
-% Bei der E-Mail kann man eine Farbe angeben, mit der die
-% Mailadresse dargestellt werden soll. Standard ist "black" 
-% als Farbe. Beispiel: \EMail[orange]{...} 
-\EMail{eva.mustermann@musterstadt.de}
+% Als erstes Argument kann man beim Telefon eine Angabe
+% davor angeben. Der Wert darf auch leer sein.
+\bwTelefon{Tel.:}{0170 567890}
+%\bwTelefon{\Telefon}{0170 567890}
+% Als erstes Argument kann man bei der E-Mail eine Angabe
+% davor angeben. Der Wert darf auch leer sein.
+% Zusätzlich kann optional eine Farbe angegeben werden,
+% mit der die Mailadresse dargestellt werden soll.
+% Standard ist "black"  als Farbe. Beispiel: \EMail[orange]{...}{...}
+\bwEMail{}{eva.mustermann@musterstadt.de}
+%\bwEMail{\Email}{eva.mustermann@musterstadt.de}
 \OrtDatum{Berlin, \HeutigerTag}
 \Geburtstag{1. Januar 1985}
 \Geburtsort{Berlin}

@@ -1,5 +1,9 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 07.10.2018 (Version 1.1) =
+
+* Angabe von Telefon- und E-Mail-Symbol aus dem marvosym-Paket nun moeglich (Anregung von Thomas)
+
 = 11.05.2018 (Version 1.0) =
 
 * Umwandlung der Vorlage in eine sty-Datei, sodass man sie mit \usepackage einbinden kann (Unterstützung von Martin)
