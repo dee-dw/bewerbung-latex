@@ -24,8 +24,18 @@
 % Andere Schrift festlegen (nur machen, falls man die korrekten Namen kennt).
 % Das erste Argument ist der Paketname für pdfTeX, das zweite Argument
 % der Schriftname für XeTeX und LuaTeX.
-% Standard ist Pagella, wofür das Paket "tex-gyre" benötigt wird.
-% \SetzeSchrift{tgpagella}{TeX Gyre Pagella}
+% Als Standard wir hier TeX Gyre Pagella benutzt (Paket "tex-gyre").
+% Hinweis 07.10.2018: Unter Ubuntu 18.04.1 werden bei mir die Schriften
+% mit LuaLaTeX und XeLaTeX nicht mehr gefunden. :(
+\SetzeSchrift{tgpagella}{TeX Gyre Pagella}
+
+% Umschalten auf serifenlose Schrift. Wenn gewuenscht, einkommentieren.
+% Achtung: Nicht jede serifenlose Schrift kommt mit den Kapitaelchen in
+% den Ueberschriften (Lebenslauf, Zu meiner Person etc.) klar. Sollten
+% diese mit Serifen angezeigt werden, dann muss man zusaetzlich das
+% optionale Argument [noscshape] angeben. Dann gibt es natuerlich auch
+% keine Kapitaelchen!
+%\NutzeSerifenlosenSchrift[]{}%
 
 % Eigene Daten festgelegt.
 \VollerName{Eva Mustermann}

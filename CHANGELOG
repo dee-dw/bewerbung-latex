@@ -1,5 +1,11 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 07.10.2018 (Version 1.2) =
+
+* Neuer Befehl \NutzeSerifenlosenSchrift, um ohne Serifen zu schreiben (Anregung von Thomas)
+** Achtung: Nicht jede serifenlose Schrift kommt mit den Kapitaelchen in den Ueberschriften (Lebenslauf, Zu meiner Person etc.) klar. Sollten diese mit Serifen angezeigt werden, dann muss man zusaetzlich das optionale Argument [noscshape] angeben. Dann gibt es natuerlich auch keine Kapitaelchen mehr!
+* microtype-Paket auskommentiert, weil das nicht mit serifenlosen Schriften zusammenspielen wollte.
+
 = 07.10.2018 (Version 1.1) =
 
 * Angabe von Telefon- und E-Mail-Symbol aus dem marvosym-Paket nun moeglich (Anregung von Thomas)

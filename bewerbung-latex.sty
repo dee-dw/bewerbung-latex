@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2018/10/07 v1.1]
+\ProvidesPackage{bewerbung-latex}[2018/10/07 v1.2]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -15,13 +15,12 @@
 \ifPDFTeX%
     \RequirePackage[utf8]{inputenc}   % UTF8-Kodierung für Umlaute
     \RequirePackage[T1]{fontenc}      % use TeX encoding then Type 1.
-    \RequirePackage{tgpagella}        % Pagella-Schrift
+    \RequirePackage{lmodern}          % Standard Modern Schrift
 \else%
-    \RequirePackage{fontspec}          % UTF8-Kodierung
-    \setmainfont{TeX Gyre Pagella} % Pagella-Schrift
+    \RequirePackage{fontspec}         % UTF8-Kodierung
 \fi%
 \RequirePackage[ngerman]{babel}   % deutsche Silbentrennung
-\RequirePackage{microtype}        % verbesserte Typographie
+%\RequirePackage{microtype}        % verbesserte Typographie (geht nicht mit Sans Serif, daher auskommentiert)
 \RequirePackage{scrlayer-scrpage} % Seitenlayout festlegen
 \RequirePackage{graphicx}         % Einbindung von Grafiken
 \RequirePackage[dvipsnames]{xcolor} % Farbdefinitionen
@@ -52,8 +51,21 @@
 \cofoot{\DefVollerName, \DefAbsenderStrasse, \DefAbsenderPLZOrt, \DefTelefon}
 \setkomafont{pagefoot}{\upshape\vspace*{0.2\baselineskip}}
 
+% Umschalten auf serifenlose Schrift.
+% Nicht jede serifenlose Schrift kommt mit den Kapitaelchen in
+% den Ueberschriften (Lebenslauf, Zu meiner Person etc.) klar. Sollten
+% diese mit Serifen angezeigt werden, dann muss man zusaetzlich das
+% optionale Argument [noscshape] angeben.
+\newcommand*{\DefUeberschriftShape}{\scshape}%
+\newcommand*{\NutzeSerifenlosenSchrift}[1][]{%
+    \renewcommand*{\familydefault}{\sfdefault}%
+    \ifthenelse{\equal{#1}{noscshape}}{%
+        \renewcommand*{\DefUeberschriftShape}{}%
+    }%
+}%
+
 % Neue Schrift setzen.
-\newcommand{\SetzeSchrift}[2]{%
+\newcommand*{\SetzeSchrift}[2]{%
     \ifPDFTeX%
         \RequirePackage{#1}
     \else%
@@ -283,7 +295,7 @@
         }{%
         }%
     }%
-    \color{\DefUeberschriftFarbe}\normalfont\DefUeberschriftGroesse\scshape%
+    \color{\DefUeberschriftFarbe}\normalfont\DefUeberschriftGroesse\DefUeberschriftShape%
 }{%
     \\%
     \ifthenelse{\equal{\DefUeberschriftAusrichtung}{mittig}}{%
