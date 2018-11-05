@@ -34,7 +34,8 @@
 \hypersetup{%
     colorlinks=true,
     urlcolor=black,
-    linkcolor=black
+    linkcolor=black,
+    unicode=True                  % korrekte Umlaute in Inhaltsverzeichnis
 }%
 
 % Layout
@@ -305,12 +306,15 @@
 }%
 
 % Abschnitt für die Hauptkapitel
-\newcommand*{\Abschnitt}[1]{%
+% optional: kein Eintrag ins Inhaltsverzeichnis
+\newcommand*{\Abschnitt}[2][]{%
     \phantomsection%
     \begin{AbschnittIntern}
-    #1%
+    #2%
     \end{AbschnittIntern}
-    \addcontentsline{toc}{section}{#1}%
+    \ifthenelse{\equal{#1}{notoc}}{}{%
+        \addcontentsline{toc}{section}{#2}%
+    }%
 }%
 
 % Farbe fuer Abschnitte und Linien
@@ -348,7 +352,7 @@
 % Seitenumbruch innerhalb des Lebenslaufs
 \newcommand*{\NeueSeiteAbschnittCV}{%
     \clearpage
-    \Abschnitt{\DefUeberschriftLebenslauf}
+    \Abschnitt[notoc]{\DefUeberschriftLebenslauf}
 }%
 
 % Per Standard gibt es keinen Tabellenabstand.
