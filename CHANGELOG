@@ -1,5 +1,10 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 03.01.2019 (Version 1.4) =
+
+* Anschreiben im Inhaltsverzeichnis verlinkt
+* Neuer Befehl \NutzeBlocksatz, um Blocksatz in Anschreiben und Motivationsseite zu nutzen (Anregung von DK)
+
 = 05.11.2018 (Version 1.3) =
 
 * Korrekte Darstellung der Umlaute im Inhaltsverzeichnis (Danke an Jakob)

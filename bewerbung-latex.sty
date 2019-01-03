@@ -1,9 +1,9 @@
-% Copyright 2009-2011,2015-2018 Dominik Wagenfuehr <dominik.wagenfuehr@deesaster.org>
+% Copyright 2009-2011,2015-2019 Dominik Wagenfuehr <dominik.wagenfuehr@deesaster.org>
 % Dieses Dokument unterliegt der Creative-Commons-Lizenz
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2018/10/07 v1.2]
+\ProvidesPackage{bewerbung-latex}[2019/01/03 v1.4]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -488,6 +488,11 @@
 \newcommand{\DefAnschreibenAnlage}{}
 \newcommand{\AnschreibenAnlage}[1]{\renewcommand{\DefAnschreibenAnlage}{#1}}%
 
+% Blocksatz einschalten
+\newboolean{AnschreibenBlocksatz}%
+\setboolean{AnschreibenBlocksatz}{false}%
+\newcommand*{\NutzeBlocksatz}{\setboolean{AnschreibenBlocksatz}{true}}
+
 \newenvironment{Anschreiben}{%
     % Titel und Autor des PDFs werden automatisch festgelegt,
     % was aber erst nach der Definition des Namens geht.
@@ -495,12 +500,16 @@
         pdftitle={Bewerbung bei \DefFirma},
         pdfauthor={\DefVollerName},
         pdfcreator={\DefVollerName}
-    }
+    }%
+    \addcontentsline{toc}{section}{Anschreiben}%
 
     \AnschreibenKopf
     \begin{spacing}{1.15}
         \Betreff
-        \begin{flushleft}
+
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \begin{flushleft}%
+        }%
             \DefAnrede
 
 }{%
@@ -508,7 +517,9 @@
             \Grussworte
             \vspace{\LenAbstandVorAnlagen}
             \DefAnschreibenAnlage
-        \end{flushleft}
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \end{flushleft}%
+        }%
     \end{spacing}
     \clearpage
 }%
@@ -545,11 +556,15 @@
     \Abschnitt{Über mich und meine Motivation}
  
     \begin{spacing}{1.3}
-        \begin{flushleft}
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \begin{flushleft}%
+        }%
 
 }{%
 
-        \end{flushleft}
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \end{flushleft}%
+        }%
     \end{spacing}
     
     \UnterschriftOrt
