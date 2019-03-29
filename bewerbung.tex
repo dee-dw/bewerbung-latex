@@ -46,11 +46,12 @@
 \bwTelefon{Tel.:}{0170 567890}
 %\bwTelefon{\Telefon}{0170 567890}
 % Als erstes Argument kann man bei der E-Mail eine Angabe
-% davor angeben. Der Wert darf auch leer sein.
+% davor angeben (z.B. "E-Mail:". Der Wert darf auch leer sein.
 % Zusätzlich kann optional eine Farbe angegeben werden,
 % mit der die Mailadresse dargestellt werden soll.
 % Standard ist "black"  als Farbe. Beispiel: \EMail[orange]{...}{...}
-\bwEMail{}{eva.mustermann@musterstadt.de}
+% Achtung: Die Farbe wird für alle Links benutzt, damit es einheitlich aussieht.
+\bwEMail[Blue]{}{eva.mustermann@musterstadt.de}
 %\bwEMail{\Email}{eva.mustermann@musterstadt.de}
 \OrtDatum{Berlin, \HeutigerTag}
 \Geburtstag{1. Januar 1985}
@@ -59,6 +60,11 @@
 % Leer lassen oder auskommentieren, wenn nichts angezeigt werden soll.
 \Details{ledig, ortsungebunden} % verheiratet, 2 Kinder, etc.
 \Ausbildungsgrad{Promovierte Veterinärmedizinerin}    % optional
+% Optionales Xing- und Linkedin-Profil
+% Beides wird nur auf der Persönlichen Seite angezeigt,
+% nicht im Anschreiben.
+\XingProfil{Eva\_Mustermann}
+\LinkedInProfil{evamustermann}
 
 % Die Unterschrift sollte als Bilddatei vorliegen.
 % Leer lassen oder auskommentieren, wenn keine Signatur eingebunden
