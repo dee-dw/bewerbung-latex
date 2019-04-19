@@ -1,0 +1,627 @@
+% Copyright 2009-2011,2015-2019 Dominik Wagenfuehr <dominik.wagenfuehr@deesaster.org>
+% Dieses Dokument unterliegt der Creative-Commons-Lizenz
+% "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
+% [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{bewerbung-latex}[2019/03/29 v1.5]
+\DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
+\ExecuteOptions{final,indexauto}
+\ProcessOptions*\relax
+
+% Pakete
+\RequirePackage{iftex}
+% Herausfinden, ob XeTeX oder LuaTeX benutzt wird. Abhaengig von der
+% Engine muessen andere Schriftpakete geladen werden
+\ifPDFTeX%
+    \RequirePackage[utf8]{inputenc}   % UTF8-Kodierung für Umlaute
+    \RequirePackage[T1]{fontenc}      % use TeX encoding then Type 1.
+    \RequirePackage{lmodern}          % Standard Modern Schrift
+\else%
+    \RequirePackage{fontspec}         % UTF8-Kodierung
+\fi%
+\RequirePackage[ngerman]{babel}   % deutsche Silbentrennung
+%\RequirePackage{microtype}        % verbesserte Typographie (geht nicht mit Sans Serif, daher auskommentiert)
+\RequirePackage{scrlayer-scrpage} % Seitenlayout festlegen
+\RequirePackage{graphicx}         % Einbindung von Grafiken
+\RequirePackage[dvipsnames]{xcolor} % Farbdefinitionen
+\RequirePackage{textcomp}         % Euro-Zeichen und andere
+\RequirePackage{pdfpages}         % PDF-Seiten einbinden
+\RequirePackage{xifthen}          % Wenn-dann-Abfragen
+\RequirePackage{array}            % Kommandos in Tabellenspalten
+\RequirePackage{ulem}             % Unterstreichen
+\RequirePackage{setspace}         % Zeilenabstand festlegen
+\RequirePackage{hyperref}         % Hyperlinks und interne PDF-Verweise
+\hypersetup{%
+    colorlinks=true,
+    urlcolor=black,
+    linkcolor=black,
+    unicode=True                  % korrekte Umlaute in Inhaltsverzeichnis
+}%
+
+% Layout
+\hbadness=10000                % unterdrückt unwichtige Fehlermeldungen
+\clubpenalty = 10000           % Keine "Schusterjungen"
+\widowpenalty = 10000          % Keine "Hurenkinder"
+\displaywidowpenalty = 10000
+
+% Linie im Kopf ausblenden und im Fuß eine feine Linie
+\KOMAoptions{headsepline=0pt,footsepline=0.4pt}
+
+% Eigene Fusszeile festlegen, Kopfzeile leer
+\pagestyle{scrheadings}
+\cofoot{\DefVollerName, \DefAbsenderStrasse, \DefAbsenderPLZOrt, \DefTelefon}
+\setkomafont{pagefoot}{\upshape\vspace*{0.2\baselineskip}}
+
+% Umschalten auf serifenlose Schrift.
+% Nicht jede serifenlose Schrift kommt mit den Kapitaelchen in
+% den Ueberschriften (Lebenslauf, Zu meiner Person etc.) klar. Sollten
+% diese mit Serifen angezeigt werden, dann muss man zusaetzlich das
+% optionale Argument [noscshape] angeben.
+\newcommand*{\DefUeberschriftShape}{\scshape}%
+\newcommand*{\NutzeSerifenlosenSchrift}[1][]{%
+    \renewcommand*{\familydefault}{\sfdefault}%
+    \ifthenelse{\equal{#1}{noscshape}}{%
+        \renewcommand*{\DefUeberschriftShape}{}%
+    }%
+}%
+
+% Neue Schrift setzen.
+\newcommand*{\SetzeSchrift}[2]{%
+    \ifPDFTeX%
+        \RequirePackage{#1}
+    \else%
+        \setmainfont{#2}
+    \fi%
+}%
+
+% Definition des heutigen Datums
+\newcommand*{\HeutigerTag}{\today}
+
+% Definitionen zur eigenen Person
+\newcommand*{\DefVollerName}{}
+\newcommand*{\DefAbsenderStrasse}{}
+\newcommand*{\DefAbsenderPLZOrt}{}
+\newcommand*{\DefTelefon}{}
+\newcommand*{\DefEMail}{}
+\newcommand*{\DefOrtDatum}{}
+\newcommand*{\DefGeburtstag}{}
+\newcommand*{\DefGeburtsort}{}
+\newcommand*{\DefDetails}{}
+\newcommand*{\DefAusbildungsgrad}{}
+\newcommand*{\DefUnterschriftenDatei}{}
+\newcommand*{\DefUnterschriftenDateiParam}{}
+\newcommand*{\DefBewerberFoto}{}
+\newcommand*{\DefBewerberFotoParam}{}
+\newcommand*{\DefXingProfil}{}
+\newcommand*{\DefLinkedInProfil}{}
+
+% Definition zum Ueberschreiben der Daten zur eigenen Person
+\newcommand*{\VollerName}[1]{\renewcommand*{\DefVollerName}{#1}}
+\newcommand*{\AbsenderStrasse}[1]{\renewcommand*{\DefAbsenderStrasse}{#1}}
+\newcommand*{\AbsenderPLZOrt}[1]{\renewcommand*{\DefAbsenderPLZOrt}{#1}}
+\newcommand*{\bwTelefon}[2]{\renewcommand*{\DefTelefon}{#1{} #2}}
+\newcommand*{\bwEMail}[3][black]{%
+    \hypersetup{urlcolor=#1}%
+    \renewcommand*{\DefEMail}{#2{} \href{mailto:#3}{#3}}%
+}
+\newcommand*{\OrtDatum}[1]{\renewcommand*{\DefOrtDatum}{#1}}
+\newcommand*{\Geburtstag}[1]{\renewcommand*{\DefGeburtstag}{#1}}
+\newcommand*{\Geburtsort}[1]{\renewcommand*{\DefGeburtsort}{#1}}
+\newcommand*{\Details}[1]{\renewcommand*{\DefDetails}{#1}}
+\newcommand*{\Ausbildungsgrad}[1]{\renewcommand*{\DefAusbildungsgrad}{#1}}
+\newcommand*{\UnterschriftenDatei}[2][5cm]{%
+    \renewcommand*{\DefUnterschriftenDateiParam}{width=#1}%
+    \renewcommand*{\DefUnterschriftenDatei}{#2}%
+}%
+\newcommand*{\BewerberFoto}[2][6cm]{%
+    \renewcommand*{\DefBewerberFotoParam}{height=#1}%
+    \renewcommand*{\DefBewerberFoto}{#2}%
+}%
+\newcommand*{\XingProfil}[1]{%
+    \renewcommand*{\DefXingProfil}{Xing: \href{https://www.xing.com/profile/#1/}{#1}}%
+}
+\newcommand*{\LinkedInProfil}[1]{%
+    \renewcommand*{\DefLinkedInProfil}{LinkedIn: \href{https://www.linkedin.com/in/#1}{#1}}%
+}
+
+% Absender
+\newcommand{\Absender}[1][\normalsize]{%
+    \rightline{\textbf{#1\DefVollerName}}
+    \rightline{\DefAbsenderStrasse}
+    \rightline{\DefAbsenderPLZOrt}
+    \rightline{\DefTelefon}
+    \rightline{\DefEMail}
+}%
+
+% Definitionen zum Empfaenger
+\newcommand*{\DefFirma}{}
+\newcommand*{\DefAbteilung}{}
+\newcommand*{\DefAdressatTitel}{}
+\newcommand*{\DefAdressatTitelKurz}{}
+\newcommand*{\DefAdressatVorname}{}
+\newcommand*{\DefAdressatNachname}{}
+\newcommand*{\DefAnschriftStrasse}{}
+\newcommand*{\DefAnschriftPLZOrt}{}
+\newcommand*{\DefAnredeKopf}{}
+\newcommand*{\DefAnredeText}{ Damen und Herren}
+\newcommand*{\DefZweiterAdressatTitel}{}
+\newcommand*{\DefZweiterAdressatTitelKurz}{}
+\newcommand*{\DefZweiterAdressatVorname}{}
+\newcommand*{\DefZweiterAdressatNachname}{}
+\newcommand*{\DefZweiterAdressatAnredeKopf}{}
+\newcommand*{\DefZweiterAdressatAnredeText}{}
+
+% Definitionen zum Ueberschreiben der Daten des Empfaengers
+\newcommand*{\Firma}[1]{\renewcommand*{\DefFirma}{#1}}
+\newcommand*{\Abteilung}[1]{\renewcommand*{\DefAbteilung}{#1}}
+\newcommand*{\AdressatTitel}[2][]{%
+    \ifthenelse{\equal{#2}{}}{%
+        \renewcommand*{\DefAdressatTitel}{}%
+    }{%
+        \renewcommand*{\DefAdressatTitel}{#2 }%
+    }%
+    \ifthenelse{\equal{#1}{}}{%
+        \renewcommand*{\DefAdressatTitelKurz}{\DefAdressatTitel}%
+    }{%
+        \renewcommand*{\DefAdressatTitelKurz}{#1 }%
+    }%
+}%
+\newcommand*{\AdressatVorname}[1]{\renewcommand*{\DefAdressatVorname}{#1}}
+\newcommand*{\AdressatNachname}[1]{\renewcommand*{\DefAdressatNachname}{#1}}
+\newcommand*{\AnschriftStrasse}[1]{\renewcommand*{\DefAnschriftStrasse}{#1}}
+\newcommand*{\AnschriftPLZOrt}[1]{\renewcommand*{\DefAnschriftPLZOrt}{#1}}
+\newcommand*{\Anrede}[1]{%
+    \ifthenelse{\equal{\DefAdressatNachname}{}}{%
+        \renewcommand*{\DefAnredeKopf}{}%
+        \renewcommand*{\DefAnredeText}{ Damen und Herren}%
+    }{%
+        \ifthenelse{\equal{#1}{Herr}}{%
+            \renewcommand*{\DefAnredeKopf}{Herrn \DefAdressatTitelKurz}%
+            \renewcommand*{\DefAnredeText}{r Herr \DefAdressatTitel}%
+        }{%
+            \ifthenelse{\equal{#1}{Frau}}{%
+                \renewcommand*{\DefAnredeKopf}{Frau \DefAdressatTitelKurz{}}%
+                \renewcommand*{\DefAnredeText}{ Frau \DefAdressatTitel{}}%
+            }{
+                \errmsg{Anrede darf sein: '','Herr','Frau'.}
+            }%
+        }%
+    }%
+}%
+\newcommand*{\ZweiterAdressatTitel}[2][]{%
+    \ifthenelse{\equal{#1}{}}{%
+        \renewcommand*{\DefZweiterAdressatTitel}{}%
+    }{%
+        \renewcommand*{\DefZweiterAdressatTitel}{#2 }%
+    }%
+    \ifthenelse{\equal{#1}{}}{%
+        \renewcommand*{\DefZweiterAdressatTitelKurz}{\DefZweiterAdressatTitel}%
+    }{%
+        \renewcommand*{\DefZweiterAdressatTitelKurz}{#1 }%
+    }%
+}%
+\newcommand*{\ZweiterAdressatVorname}[1]{%
+    \renewcommand*{\DefZweiterAdressatVorname}{#1}%
+}%
+\newcommand*{\ZweiterAdressatNachname}[1]{%
+    \renewcommand*{\DefZweiterAdressatNachname}{#1}%
+}%
+\newcommand*{\ZweiterAdressatAnrede}[1]{%
+    \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{%
+        \renewcommand*{\DefZweiterAdressatAnredeKopf}{}%
+        \renewcommand*{\DefZweiterAdressatAnredeText}{}%
+    }{%
+        \ifthenelse{\equal{#1}{Herr}}{%
+            \renewcommand*{\DefZweiterAdressatAnredeKopf}{Herrn \DefZweiterAdressatTitelKurz}%
+            \renewcommand*{\DefZweiterAdressatAnredeText}{r Herr \DefZweiterAdressatTitel}%
+        }{%
+            \ifthenelse{\equal{#1}{Frau}}{%
+                \renewcommand*{\DefZweiterAdressatAnredeKopf}{Frau \DefZweiterAdressatTitelKurz}%
+                \renewcommand*{\DefZweiterAdressatAnredeText}{ Frau \DefZweiterAdressatTitel}%
+            }{
+                \errmsg{Anrede darf sein: '','Herr','Frau'.}
+            }%
+        }%
+    }%
+}%
+
+% Adressat
+\newcommand{\Anschrift}{%
+    \textbf{\DefFirma}\\
+    \ifthenelse{\equal{\DefAnredeKopf}{}}{}{%
+        \DefAnredeKopf{}%
+        \ifthenelse{\equal{\DefAdressatVorname}{}}{}{%
+            \DefAdressatVorname{} %
+        }%
+        \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
+            \DefAdressatNachname{} \\
+        }%
+    }%
+    \ifthenelse{\equal{\DefZweiterAdressatAnredeKopf}{}}{}{%
+        \DefZweiterAdressatAnredeKopf{}%
+        \ifthenelse{\equal{\DefZweiterAdressatVorname}{}}{}{%
+            \DefZweiterAdressatVorname{} %
+        }%
+        \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{%
+            \DefZweiterAdressatNachname{} \\
+        }%
+    }%
+    \ifthenelse{\equal{\DefAbteilung}{}}{}{%
+        \DefAbteilung\\
+    }%
+    \DefAnschriftStrasse\\
+    \DefAnschriftPLZOrt\\
+}%
+
+% Makro für Ort und Unterschrift
+\newcommand*{\UnterschriftOrt}{%
+    \Unterschrift~\\
+    \DefOrtDatum%
+}%
+
+% Unterschrift als Bilddatei einfügen
+\newcommand*{\Unterschrift}{%
+    \ifthenelse{\equal{\DefUnterschriftenDatei}{}}{%
+        \vspace{2\baselineskip}%
+    }{%
+        \expandafter\includegraphics\expandafter[\DefUnterschriftenDateiParam]{\DefUnterschriftenDatei}%
+    }%
+}%
+
+% Ausrichtung der Ueberschrift
+\newcommand*{\DefUeberschriftAusrichtung}{rechts}%
+\newcommand*{\UeberschriftAusrichtung}[1]{%
+    \ifthenelse{\equal{#1}{links}}{%
+        \renewcommand*{\DefUeberschriftAusrichtung}{#1}%
+    }{%
+        \ifthenelse{\equal{#1}{rechts}}{%
+            \renewcommand*{\DefUeberschriftAusrichtung}{#1}%
+        }{%
+            \ifthenelse{\equal{#1}{mittig}}{%
+                \renewcommand*{\DefUeberschriftAusrichtung}{#1}%
+            }{%
+                \errmsg{Ausrichtung darf sein: 'links','rechts','mittig'.}
+            }%
+        }%
+    }%
+}%
+
+% Schriftgroesse der Ueberschrift
+\newcommand*{\DefUeberschriftGroesse}{\LARGE}%
+\newcommand*{\UeberschriftGroesse}[1]{\renewcommand*{\DefUeberschriftGroesse}{#1}}
+
+% Farbe fuer Ueberschrift
+\newcommand*{\DefUeberschriftFarbe}{Black}%
+\newcommand*{\UeberschriftFarbe}[1]{\renewcommand*{\DefUeberschriftFarbe}{#1}}
+
+% Interne Umgebung fuer die Darstellung der Ueberschrift
+\newenvironment*{AbschnittIntern}{%
+    \ifthenelse{\equal{\DefUeberschriftAusrichtung}{mittig}}{%
+        \begin{center}%
+    }{%
+        \ifthenelse{\equal{\DefUeberschriftAusrichtung}{rechts}}{%
+            \hspace*{\fill}%
+        }{%
+        }%
+    }%
+    \color{\DefUeberschriftFarbe}\normalfont\DefUeberschriftGroesse\DefUeberschriftShape%
+}{%
+    \\%
+    \ifthenelse{\equal{\DefUeberschriftAusrichtung}{mittig}}{%
+        \end{center}%
+    }{%
+    }%
+}%
+
+% Abschnitt für die Hauptkapitel
+% optional: kein Eintrag ins Inhaltsverzeichnis
+\newcommand*{\Abschnitt}[2][]{%
+    \phantomsection%
+    \begin{AbschnittIntern}
+    #2%
+    \end{AbschnittIntern}
+    \ifthenelse{\equal{#1}{notoc}}{}{%
+        \addcontentsline{toc}{section}{#2}%
+    }%
+}%
+
+% Farbe fuer Abschnitte und Linien
+\newcommand*{\DefAbschnittFarbe}{Black}%
+\newcommand*{\DefAbschnittLinienFarbe}{Black}
+\newcommand*{\AbschnittFarbe}[1]{\renewcommand*{\DefAbschnittFarbe}{#1}}
+\newcommand*{\AbschnittLinienFarbe}[1]{\renewcommand*{\DefAbschnittLinienFarbe}{#1}}
+
+% Unterabschnitte im Lebenslauf und Anlagenverzeichnis
+\newcommand*{\Unterabschnitt}[1]{%
+    \phantomsection%
+    \ifthenelse{\boolean{UnterabschnittBuendig}}{%
+        \hspace{\LenEinschubCV}%
+    }{}%
+    {\normalfont\Large\bfseries\scshape\textcolor{\DefAbschnittFarbe}{#1}}%
+    \vskip-\baselineskip\textcolor{\DefAbschnittLinienFarbe}{\hrulefill}\\[-0.5\baselineskip]%
+    \addcontentsline{toc}{subsection}{#1}%
+}%
+
+% Ueberschrift im Lebenslauf festlegen.
+% Definitionen zum Empfaenger
+\newcommand*{\DefUeberschriftLebenslauf}{Lebenslauf}
+\newcommand*{\UeberschriftLebenslauf}[1]{\renewcommand*{\DefUeberschriftLebenslauf}{#1}}
+
+% Lebenslauf
+\newenvironment{Lebenslauf}{%
+    \Abschnitt{\DefUeberschriftLebenslauf}
+}{%
+    % Seite um eine Zeile vergrößern, damit Unterschrift besser draufpasst.
+    \enlargethispage{2\baselineskip}%
+    \UnterschriftOrt%
+    \clearpage
+}
+
+% Seitenumbruch innerhalb des Lebenslaufs
+\newcommand*{\NeueSeiteAbschnittCV}{%
+    \clearpage
+    \Abschnitt[notoc]{\DefUeberschriftLebenslauf}
+}%
+
+% Per Standard gibt es keinen Tabellenabstand.
+\setlength{\tabcolsep}{0pt}%
+
+% Legt den Einschub des Inhalts eines CV-Abschnitte (d.h. der Tabelle) fest.
+\newboolean{UnterabschnittBuendig}%
+\setboolean{UnterabschnittBuendig}{false}%
+\newlength{\LenEinschubCV}
+\setlength{\LenEinschubCV}{8pt}
+\newcommand*{\EinschubCV}[2][]{%
+    \setlength{\LenEinschubCV}{#2}%
+    \ifthenelse{\equal{#1}{}}{%
+        \setboolean{UnterabschnittBuendig}{false}%
+    }{%
+        \setboolean{UnterabschnittBuendig}{true}%
+    }%
+}%
+
+% Tabelle für Lebenslauf
+\newlength{\AbstandAbschnitt}
+\newenvironment{AbschnittCV}[2][0.5]{%
+    \Unterabschnitt{#2}%
+    
+    \setlength{\AbstandAbschnitt}{#1\baselineskip}%
+}{%
+    \vspace{\AbstandAbschnitt}%
+}%
+
+% Eintrag im Lebenslauf
+\newcommand{\EintragCV}[3][0.5]{%
+    \hspace*{\LenEinschubCV}%
+    \begin{tabular}{p{0.3\linewidth}p{0.7\linewidth-\LenEinschubCV}}%
+    #2 & #3%
+    \end{tabular}\\[#1\baselineskip]%
+}%
+
+% Unterabschnitt in Lebenslauftabelle mit sonstigen Themen
+% Achtung, keine Umgebung, sondern ein Kommando!
+% Das optionale Argument wird nicht mehr genutzt!
+\newlength{\AbstandUnterabschnitt}
+\newcommand{\UnterabschnittCV}[3][0\baselineskip]{%
+    \textit{#2}:
+    \begin{itemize}
+    #3
+    \end{itemize}
+}%
+
+% Anrede im Brief
+\newcommand*{\DefAnrede}{%
+    Sehr geehrte\DefAnredeText{}%
+    \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
+        \DefAdressatNachname{}%
+    }%
+    ,%
+    \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{
+        \\%
+        sehr geehrte\DefZweiterAdressatAnredeText{}%
+        \DefZweiterAdressatNachname{}%
+        ,%
+    }%
+}%
+
+% Die Grußformel am Anschreibenende
+\newcommand{\Grussworte}{%
+    Über die Einladung zu einem persönlichen Gespräch freue ich mich und verbleibe
+
+    mit freundlichen Grüßen
+
+    \Unterschrift~\\
+}%
+
+% Definition der Bewerberstelle
+\newcommand*{\DefBewerberstelle}{}
+
+% Definitionen zum Ueberschreiben der Bewerberstelle
+\newcommand*{\Bewerberstelle}[1]{\renewcommand*{\DefBewerberstelle}{#1}}
+
+% Betreff
+\newcommand*{\Betreff}{%
+    \textbf{Bewerbung als \DefBewerberstelle}%
+}%
+
+% Etwas Abstand vor dem Ort, um die Seite besser aufteilen zu können.
+\newlength{\LenAbstandVorAnschreiben}
+\setlength{\LenAbstandVorAnschreiben}{\baselineskip}
+\newcommand*{\AbstandVorAnschreiben}[1]{\setlength{\LenAbstandVorAnschreiben}{#1\baselineskip}}
+
+% Abstand zwischen den Adressen im Anschreiben.
+\newlength{\LenAbstandZwischenAdressen}
+\setlength{\LenAbstandZwischenAdressen}{0\baselineskip}
+\newcommand*{\AbstandZwischenAdressen}[1]{\setlength{\LenAbstandZwischenAdressen}{#1\baselineskip}}
+
+% Die Anschreibeseite wird bei Bedarf etwas vergrößert, da es hier keine
+% Fußzeile gibt.
+\newlength{\LenSeiteVergroessern}
+\setlength{\LenSeiteVergroessern}{0\baselineskip}
+\newcommand*{\AnschreibenSeiteVergroessern}[1]{\setlength{\LenSeiteVergroessern}{#1\baselineskip}}
+
+\newcommand{\AnschreibenKopf}{%
+    % Anschreiben ohne Fuss- oder Kopfzeile
+    \thispagestyle{empty}
+
+    % Seite ggf. etwas vergroessern
+    \enlargethispage{\LenSeiteVergroessern}
+    
+    \begin{spacing}{1.05}
+        % Meine Anschrift
+        \Absender
+
+        % ggf. will man etwas Abstand zwischen den Adressen.
+        \vspace*{\LenAbstandZwischenAdressen}
+
+        % Anschrift der Firma
+        \Anschrift
+
+        % ggf. braucht man hier etwas Abstand, je nachdem, wie
+        % viel Text man im Anschreiben hat.
+        \vspace*{\LenAbstandVorAnschreiben}
+
+        % Ort und Datum
+        \rightline{\DefOrtDatum}
+    \end{spacing}
+
+}%
+
+% Abstand zwischen Unterschrift und den Anlagen im Anschreiben
+\newlength{\LenAbstandVorAnlagen}
+\setlength{\LenAbstandVorAnlagen}{\baselineskip}
+\newcommand*{\AbstandVorAnlagen}[1]{\setlength{\LenAbstandVorAnlagen}{#1\baselineskip}}
+
+% Definition des Textes im Anschreiben
+\newcommand{\DefAnschreibenAnlage}{}
+\newcommand{\AnschreibenAnlage}[1]{\renewcommand{\DefAnschreibenAnlage}{#1}}%
+
+% Blocksatz einschalten
+\newboolean{AnschreibenBlocksatz}%
+\setboolean{AnschreibenBlocksatz}{false}%
+\newcommand*{\NutzeBlocksatz}{\setboolean{AnschreibenBlocksatz}{true}}
+
+\newenvironment{Anschreiben}{%
+    % Titel und Autor des PDFs werden automatisch festgelegt,
+    % was aber erst nach der Definition des Namens geht.
+    \hypersetup{%
+        pdftitle={Bewerbung bei \DefFirma},
+        pdfauthor={\DefVollerName},
+        pdfcreator={\DefVollerName}
+    }%
+    \addcontentsline{toc}{section}{Anschreiben}%
+
+    \AnschreibenKopf
+    \begin{spacing}{1.15}
+        \Betreff
+
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \begin{flushleft}%
+        }%
+            \DefAnrede
+
+}{%
+
+            \Grussworte
+            \vspace{\LenAbstandVorAnlagen}
+            \DefAnschreibenAnlage
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \end{flushleft}%
+        }%
+    \end{spacing}
+    \clearpage
+}%
+
+\newcommand{\MeineSeite}{%
+    \Abschnitt{Zu meiner Person}
+
+    \begin{spacing}{1.3}
+        \Absender[\large]
+        \rightline{\DefXingProfil}
+        \rightline{\DefLinkedInProfil}
+        \vspace{1.5\baselineskip}
+
+        \rightline{geboren am \DefGeburtstag}
+        \rightline{in \DefGeburtsort}
+        \vspace{0.5\baselineskip}
+
+        \rightline{\DefDetails}
+
+        \rule{10cm}{0.6pt} \\
+        \ifthenelse{\equal{\DefAusbildungsgrad}{}}{}{%
+            {\large \textbf{Ausbildungsgrad}}\\
+            \DefAusbildungsgrad\\
+        }%
+
+        \ifthenelse{\equal{\DefBewerberFoto}{}}{}{%
+            \expandafter%
+            \includegraphics\expandafter[\DefBewerberFotoParam]{\DefBewerberFoto}\\
+        }%
+
+    \end{spacing}
+    \clearpage
+}%
+
+\newenvironment{Motivation}{%
+    \Abschnitt{Über mich und meine Motivation}
+ 
+    \begin{spacing}{1.3}
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \begin{flushleft}%
+        }%
+
+}{%
+
+        \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
+            \end{flushleft}%
+        }%
+    \end{spacing}
+    
+    \UnterschriftOrt
+    \clearpage
+}%
+
+% Definition der Abschnitte
+\newcommand*{\AbschnittAnlage}[1]{%
+    \vspace{\baselineskip}%
+    \Unterabschnitt{#1}%
+}%
+
+% Definition der Auflistung
+\newenvironment{Auflistung}{%
+    \itemize%
+}{%
+    \enditemize%
+}%
+
+\newcommand{\punkt}{\item}
+
+% Definition des Anlagenverzeichnisses
+\newenvironment{Anlagenverzeichnis}{%
+    \Abschnitt{Anlagenverzeichnis}
+
+    \begin{spacing}{1.1}
+}{%
+    \end{spacing}
+    \clearpage
+}%
+
+% Eine einzelne Anlage
+\newcommand*{\Anlage}[2][]{%
+    \ifthenelse{\equal{#1}{}}{%
+        \item #2
+    }{%
+        \item \hyperlink{#1.1}{\uline{#2}}
+    }%
+}%
+
+% Anlagen einfuegen
+% Option "quer" (oder irgendein anderes Wort) für Querformat.
+\newcommand*{\AnlageEinfuegen}[2][]{%
+    \ifthenelse{\equal{#1}{}}{%
+        \includepdf[pages=-,link,linkname=#2]{#2}%
+    }{%
+        \includepdf[landscape,pages=-,link,linkname=#2]{#2}%
+    }%
+}%
+\endinput
