@@ -1,5 +1,5 @@
-# bewerbung-latex
-Eine deutschsprachige Bewerbungvorlage mit LaTeX.
+# application-latex
+Eine englischsprachige Bewerbungvorlage mit LaTeX.
 
 Die Vorlage unterliegt 
 der Creative-Commons-Lizenz "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
@@ -35,12 +35,12 @@ Befehle ebenfalls deutschsprachig verfasst.
 
 Das Archiv der Bewerbungsvorlage enthält vier Dateien:
 
-* **bewerbung.tex** – Die eigentliche Bewerbungsvorlage. Nur hierin werden Daten geändert.
-* **bewerbung-latex.sty** – Die Style-Datei mit den benötigten Befehlen und Paketen. Diese Datei nicht anfassen!
-* **foto-bewerber.png** – Das (optionales) Bewerberfoto.
-* **signatur-bewerber.png** – Die (optionale) eingescannte Unterschrift.
+* **application.tex** – Die eigentliche Bewerbungsvorlage. Nur hierin werden Daten geändert.
+* **application-latex.sty** – Die Style-Datei mit den benötigten Befehlen und Paketen. Diese Datei nicht anfassen!
+* **photo-applicant.png** – Das (optionales) Bewerberfoto.
+* **signature-applicant.png** – Die (optionale) eingescannte Unterschrift.
 
-Wie geschrieben muss ein Bewerber nur die Datei **bewerbung.tex**
+Wie geschrieben muss ein Bewerber nur die Datei **application.tex**
 anpassen.
 
 ## Aufbau der Bewerbung
@@ -53,5 +53,5 @@ Die Bewerbung gliedert sich in fünf Teile:
 * Motivationsseite
 * Anlagenverzeichnis
 
-Die Datei **bewerbung.tex** ist entsprechend mit Kommentaren zum Ausfüllen
+Die Datei **application.tex** ist entsprechend mit Kommentaren zum Ausfüllen
 versehen.
