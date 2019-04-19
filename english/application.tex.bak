@@ -285,16 +285,16 @@
 
 \begin{AbschnittCV}{Special Knowledge}%
 \EintragCV{Languages}{English: very good in writing and speaking \newline
-					  French: basic knowledge \newline
-                      Latin: certificate in Latinum
+French: basic knowledge \newline
+                     Latein: Abschluss mit Latinum
 }
-\EintragCV{Medicine}{General veterinary medicine \newline
-                     Reptiles
+\EintragCV{Medizin}{Allgemeine Veterinärmedizin \newline
+                    Reptilien
 }
 \end{AbschnittCV}
 
-\begin{AbschnittCV}{Hobbys and Interests}%
-\EintragCV{}{Literature \newline
+\begin{AbschnittCV}{Hobbys und Interessen}%
+\EintragCV{}{Literatur \newline
              Badminton
 }
 \end{AbschnittCV}
