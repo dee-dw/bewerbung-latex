@@ -1,5 +1,12 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 22.04.2019 (Version 1.6) =
+
+* "Schweiz" als Option für Sprache eingefügt (Anregung von Dirk)
+* Option für Position des Adressaten/des Adressfelds hinzugefügt
+* Option für Position des Absenders hinzugefügt
+* Bugfix: Wenn E-Mailadresse, aber keine Telefonnummer angegeben wird, erscheint keine Leerzeile innerhalb des Absenders mehr.
+
 = 29.03.2019 (Version 1.5) =
 
 * optionale Links auf Xing und LinkedIn-Profil eingefügt (Anregung von Nadja)

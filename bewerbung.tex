@@ -18,16 +18,14 @@
 %\usepackage{marvosym}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Ab hier sollte man selbst Änderungen vornehmen.
+% Ab hier sollte man selbst Aenderungen vornehmen.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Andere Schrift festlegen (nur machen, falls man die korrekten Namen kennt).
 % Das erste Argument ist der Paketname für pdfTeX, das zweite Argument
 % der Schriftname für XeTeX und LuaTeX.
 % Als Standard wir hier TeX Gyre Pagella benutzt (Paket "tex-gyre").
-% Hinweis 07.10.2018: Unter Ubuntu 18.04.1 werden bei mir die Schriften
-% mit LuaLaTeX und XeLaTeX nicht mehr gefunden. :(
-\SetzeSchrift{tgpagella}{TeX Gyre Pagella}
+\SetzeSchrift{tgpagella}{TeX Gyre Pagella}     % optional
 
 % Umschalten auf serifenlose Schrift. Wenn gewuenscht, einkommentieren.
 % Achtung: Nicht jede serifenlose Schrift kommt mit den Kapitaelchen in
@@ -37,20 +35,27 @@
 % keine Kapitaelchen!
 %\NutzeSerifenlosenSchrift[]{}%
 
+% Zuerst die Sprache festlegen.
+% Per Standard ist "Deutsch" gesetzt.
+% Zusaetzliche, moegliche Angaben sind: "Schweiz"
+%\SetzeSprache{Schweiz}          % optional
+
 % Eigene Daten festgelegt.
 \VollerName{Eva Mustermann}
-\AbsenderStrasse{Musterstraße 42}
+\AbsenderStrasse{Musterweg 42}
 \AbsenderPLZOrt{12345 Berlin}
 % Als erstes Argument kann man beim Telefon eine Angabe
 % davor angeben. Der Wert darf auch leer sein.
+% Bei Telefonnummer ggf. Laenderkennung ergaenzen, wenn
+% die Telefonnummer nicht im Land des Empfaengers ist.
 \bwTelefon{Tel.:}{0170 567890}
-%\bwTelefon{\Telefon}{0170 567890}
+%\bwTelefon{\Telefon}{+49 170 567890}
 % Als erstes Argument kann man bei der E-Mail eine Angabe
 % davor angeben (z.B. "E-Mail:". Der Wert darf auch leer sein.
-% Zusätzlich kann optional eine Farbe angegeben werden,
+% Zusaetzlich kann optional eine Farbe angegeben werden,
 % mit der die Mailadresse dargestellt werden soll.
 % Standard ist "black"  als Farbe. Beispiel: \EMail[orange]{...}{...}
-% Achtung: Die Farbe wird für alle Links benutzt, damit es einheitlich aussieht.
+% Achtung: Die Farbe wird fuer alle Links benutzt, damit es einheitlich aussieht.
 \bwEMail[Blue]{}{eva.mustermann@musterstadt.de}
 %\bwEMail{\Email}{eva.mustermann@musterstadt.de}
 \OrtDatum{Berlin, \HeutigerTag}
@@ -61,7 +66,7 @@
 \Details{ledig, ortsungebunden} % verheiratet, 2 Kinder, etc.
 \Ausbildungsgrad{Promovierte Veterinärmedizinerin}    % optional
 % Optionales Xing- und Linkedin-Profil
-% Beides wird nur auf der Persönlichen Seite angezeigt,
+% Beides wird nur auf der Persoenlichen Seite angezeigt,
 % nicht im Anschreiben.
 \XingProfil{Eva\_Mustermann}
 \LinkedInProfil{evamustermann}
@@ -76,12 +81,12 @@
 % Das Bewerberfoto.
 % Leer lassen oder auskommentieren, wenn keine Foto auf
 % der "Meine Seite"-Seite angezeigt werden soll.
-% Als Option gibt man die Höhe des Bildes an. Eine Höhe von 10.5 cm
-% ist das größte, was noch auf die Seite passt.
+% Als Option gibt man die Hoehe des Bildes an. Eine Hoehe von 10.5 cm
+% ist das groesste, was noch auf die Seite passt.
 \BewerberFoto[6cm]{foto-bewerber.jpg}                 % optional
 
 % Adressat festlegen
-% Die Abteilung und der Vorname sind optional und können leer
+% Die Abteilung und der Vorname sind optional und koennen leer
 % gelassen oder auskommentiert werden.
 % Wenn der Nachname leergelassen oder auskommentiert wird,
 % wird die Anrede automatisch durch "Damen und Herren" ersetzt.
@@ -100,8 +105,8 @@
 % damit dies korrekt um Titel und Name ergaenzt wird!
 \Anrede{Frau}                          % alternativ: Frau, Herr oder leer lassen
 
-% Man kann hierüber einen zweiten Ansprechpartner beim Anschreiben angeben.
-% Die Adresszeile wird entsprechend ergänzt.
+% Man kann hier einen zweiten Ansprechpartner beim Anschreiben angeben.
+% Die Adresszeile wird entsprechend ergaenzt.
 %\ZweiterAdressatVorname{Pitti}            % optional
 %\ZweiterAdressatNachname{Platsch}         % ggf. optional
 %\ZweiterAdressatTitel[Dr.]{Doktor}        % optional
@@ -122,26 +127,43 @@
 % Blocksatz umstellen.
 %\NutzeBlocksatz{}
 
+% Ausrichtung des Absenders im Anschreiben (nur im Anschreiben, nicht
+% auf der eigenen Seite!)
+% Aufgrund der Ausrichtung des Adressaten will man ggf. auch den Absender
+% neu ausrichten, damit es nicht direkt übereinander steht. Per Standard:
+% Deutsch: rechts
+% Schweiz: links
+% Aber man kann es manuell umschalten, wenn man will.
+%\AbsenderAusrichtung{rechts}          % optional
+
+% Ausrichtung des Adressaten im Adressfeld
+% Es gibt Laender, wo das Adressfeld nicht links,
+% sondern rechts steht. Per Standard gilt:
+% Deutsch: links
+% Schweiz: rechts
+% Aber man kann es manuell umschalten, wenn man will.
+%\AddressatAusrichtung{links}         % optional
+
 % Abstand zwischen dem Absender und dem Adressat im Anschreiben.
-% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0.
-\AbstandZwischenAdressen{0}
+%\AbstandZwischenAdressen{0}      % optional
 
 % Abstand vor dem eigentlichen Anschreiben (inkl. Ort und Datum).
-% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 1.
 \AbstandVorAnschreiben{3}
 
 % Anschreibenseite vergroessern, d.h. es ist damit moeglich, ueber den
 % eigentlichen unteren Rand zu schreiben, falls das Anschreiben etwas
 % laenger geworden ist.
-% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0. Als Maximalwert sollte man 3 einstellen, ansonsten
 % wirkt das Anschreiben vom Aufbau sehr unausgeglichen.
 \AnschreibenSeiteVergroessern{0}
 
 % Abstand zwischen Unterschrift und den Anlagen im Anschreiben
-% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 1.
 \AbstandVorAnlagen{2}
 
@@ -150,17 +172,19 @@
 %\AnschreibenAnlage{Anlagen}
 
 \begin{Anschreiben}
-    % Hinweis Anfang – nach dem Lesen löschen!
+    % Hinweis Anfang – nach dem Lesen loeschen!
+    % In der Schweiz beginnt man den Satz im Uebrigen gross, da kein
+    % Komma bei der Anrede benutzt wird.
     hier steht mein Bewerbungstext, wieso ich mich auf die Stelle bewerbe
     und bei der Firma anfangen möchte. Der Text sollte nicht zu lang sein
     und nur die wichtigsten Details enthalten.
     
     Den Hinweis hier muss ich natürlich löschen! Alles, was in der Vorlage
     zwischen den Kommentarzeilen steht, kann weg.
-    % Hinweis Ende – nach dem Lesen löschen!
+    % Hinweis Ende – nach dem Lesen loeschen!
 \end{Anschreiben}
 
-% Optional kann man die Farbe fuer die Ueberschriften ab hier festlegen.
+% Optional kann man die Farbe für die Ueberschriften ab hier festlegen.
 % Dazu zaehlt auch die eigene Seite.
 % Als Optionen kann man die normalen LaTeX-Farben verwenden (Englisch):
 % https://en.wikibooks.org/wiki/LaTeX/Colors
@@ -180,7 +204,7 @@
 
 % Ausrichtung der Ueberschriften.
 % Man kann die Ausrichtung prinzipiell vor jedem Kapitel
-% (Lebenslauf, Motivation, Anlagen) neu einstellen, aber gleichfoermiger
+% (Lebenslauf, Motivation, Anlagen) neu einstellen, aber gleichförmiger
 % ist es, wenn man es nur einmal hier definiert.
 % Moegliche Angaben sind: links, rechts, mittig.
 % Per Standard wird "rechts" ausgewaehlt.
@@ -192,7 +216,7 @@
 % Standard ist \LARGE
 \UeberschriftGroesse{\LARGE}            % optional
 
-% Überschrift des Lebenslaufes.
+% Ueberschrift des Lebenslaufes.
 % Hier kann man auch zum Beispiel "Curriculum Vitae" eintragen.
 % Per Standard wird "Lebenslauf" ausgegeben.
 \UeberschriftLebenslauf{Lebenslauf}     % optional
@@ -203,8 +227,8 @@
 % In der Textgestaltung ist man dabei ansonsten frei.
 % Legt den Einschub des Inhalts eines CV-Abschnitte (d.h. der Tabelle) fest.
 % Standard ist 8pt.
-% Das optionale Argument "buendig" gibt an, dass die Überschrift zusaetzlich
-% noch bündig zur Tabelle sein soll und nicht linksbündig per Standard.
+% Das optionale Argument "buendig" gibt an, dass die Ueberschrift zusaetzlich
+% noch buendig zur Tabelle sein soll und nicht linksbuendig per Standard.
 \EinschubCV[buendig]{8pt}            % optional
 %\EinschubCV{8pt}
 
@@ -231,12 +255,12 @@
 
 % Ein optionales Argument von "AbschnittCV" gibt an wie viel Platz
 % unterhalb des gesamten Abschnitts gelassen wird.
-% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0.5, also eine halbe Zeile.
 \begin{AbschnittCV}[0]{Studium}%
 % Ein optionales Argument von "EintragCV" gibt an wie viel Platz
 % unterhalb des Eintrags gelassen wird.
-% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht für anderthalb Zeilen.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0.5, also eine halbe Zeile.
 \EintragCV[1]{September 2012}{Abschluss als Diplom-Veterinärmedizinerin (Bewertung „sehr gut“) \newline
                            Diplomarbeit an der Freien Universität Berlin: \newline
@@ -305,9 +329,9 @@
 % Motivation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Text für die Motivationsseite
+% Text fuer die Motivationsseite
 \begin{Motivation}
-    % Hinweis Anfang – nach dem Lesen löschen!
+    % Hinweis Anfang – nach dem Lesen loeschen!
     Hier steht mein Motivationstext. Ich kann ein bisschen mehr
     über mich erzählen und wieso ich bei der Firma anfangen will,
     wenn ich das noch nicht im Anschreiben getan habe.
@@ -321,13 +345,13 @@
     
     Den Hinweis hier muss ich natürlich löschen! Alles, was in der Vorlage
     zwischen den Kommentarzeilen steht, kann weg.
-    % Hinweis Ende – nach dem Lesen löschen!
+    % Hinweis Ende – nach dem Lesen loeschen!
 \end{Motivation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Anlagen
 % Wenn man keine Anlagen hat, dann alles
-% auskommentieren oder löschen.
+% auskommentieren oder loeschen.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Bei den Anlagen kann man als Option einen Dateinamen angeben,

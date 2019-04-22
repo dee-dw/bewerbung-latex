@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2019/03/29 v1.5]
+\ProvidesPackage{bewerbung-latex}[2019/04/22 v1.6]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -13,7 +13,7 @@
 % Herausfinden, ob XeTeX oder LuaTeX benutzt wird. Abhaengig von der
 % Engine muessen andere Schriftpakete geladen werden
 \ifPDFTeX%
-    \RequirePackage[utf8]{inputenc}   % UTF8-Kodierung für Umlaute
+    \RequirePackage[utf8]{inputenc}   % UTF8-Kodierung fuer Umlaute
     \RequirePackage[T1]{fontenc}      % use TeX encoding then Type 1.
     \RequirePackage{lmodern}          % Standard Modern Schrift
 \else%
@@ -39,12 +39,12 @@
 }%
 
 % Layout
-\hbadness=10000                % unterdrückt unwichtige Fehlermeldungen
+\hbadness=10000                % unterdrueckt unwichtige Fehlermeldungen
 \clubpenalty = 10000           % Keine "Schusterjungen"
 \widowpenalty = 10000          % Keine "Hurenkinder"
 \displaywidowpenalty = 10000
 
-% Linie im Kopf ausblenden und im Fuß eine feine Linie
+% Linie im Kopf ausblenden und im Fuss eine feine Linie
 \KOMAoptions{headsepline=0pt,footsepline=0.4pt}
 
 % Eigene Fusszeile festlegen, Kopfzeile leer
@@ -72,6 +72,27 @@
     \else%
         \setmainfont{#2}
     \fi%
+}%
+
+% Sprache einstellen
+% Die Sprache regelt einige der Floskeln, Sonderzeichen etc.
+% Standard ist "Deutsch".
+% Erlaubt sind zusaetzlich: "Schweiz"
+\newcommand*{\DefSprache}{Deutsch}%
+\newcommand*{\SetzeSprache}[1]{%
+    \ifthenelse{\equal{#1}{Deutsch}}{%
+        \renewcommand*{\DefSprache}{Deutsch}%
+        \AddressatAusrichtung{links}%
+        \AbsenderAusrichtung{rechts}%
+    }{%
+        \ifthenelse{\equal{#1}{Schweiz}}{%
+            \renewcommand*{\DefSprache}{Schweiz}%
+            \AddressatAusrichtung{rechts}%
+            \AbsenderAusrichtung{links}%
+        }{%
+            \errmsg{Unbekannte Sprachangabe: #1.}
+        }%
+    }%
 }%
 
 % Definition des heutigen Datums
@@ -124,13 +145,56 @@
     \renewcommand*{\DefLinkedInProfil}{LinkedIn: \href{https://www.linkedin.com/in/#1}{#1}}%
 }
 
+% Ausrichtung des Absenders
+\newcommand*{\DefAbsenderAusrichtung}{rechts}%
+\newcommand*{\AbsenderAusrichtung}[1]{%
+    \ifthenelse{\equal{#1}{links}}{%
+        \renewcommand*{\DefAbsenderAusrichtung}{#1}%
+    }{%
+        \ifthenelse{\equal{#1}{rechts}}{%
+            \renewcommand*{\DefAbsenderAusrichtung}{#1}%
+        }{%
+            \errmsg{Ausrichtung darf sein: 'links','rechts'.}
+        }%
+    }%
+}%
+
 % Absender
-\newcommand{\Absender}[1][\normalsize]{%
+\newcommand{\AbsenderRechts}[1][\normalsize]{%
     \rightline{\textbf{#1\DefVollerName}}
     \rightline{\DefAbsenderStrasse}
     \rightline{\DefAbsenderPLZOrt}
-    \rightline{\DefTelefon}
+    \ifthenelse{\equal{\DefTelefon}{}}{%
+    }{%
+        \rightline{\DefTelefon}
+    }%
     \rightline{\DefEMail}
+    \ifthenelse{\equal{\DefTelefon}{}}{%
+        \rightline{}
+    }{}%
+}%
+\newcommand{\AbsenderLinks}[1][\normalsize]{%
+    \textbf{#1\DefVollerName}\\
+    \DefAbsenderStrasse\\
+    \DefAbsenderPLZOrt\\
+    \ifthenelse{\equal{\DefTelefon}{}}{%
+    }{%
+        \DefTelefon\\
+    }%
+    \DefEMail\\
+    \ifthenelse{\equal{\DefTelefon}{}}{%
+        \\
+    }{}%
+    % Ich weiss nicht, wieso ich hier eine Leerzeile mehr bekomme als
+    % bei rechtsbuendig, aber ich korrigier das manuell.
+    \vspace{-\baselineskip}%
+}%
+\newcommand{\Absender}[1][\normalsize]{%
+    \ifthenelse{\equal{\DefAbsenderAusrichtung}{links}}{%
+        \AbsenderLinks[#1]{}%
+    }{%
+        \AbsenderRechts[#1]{}%
+    }
 }%
 
 % Definitionen zum Empfaenger
@@ -225,41 +289,60 @@
     }%
 }%
 
-% Adressat
-\newcommand{\Anschrift}{%
-    \textbf{\DefFirma}\\
-    \ifthenelse{\equal{\DefAnredeKopf}{}}{}{%
-        \DefAnredeKopf{}%
-        \ifthenelse{\equal{\DefAdressatVorname}{}}{}{%
-            \DefAdressatVorname{} %
-        }%
-        \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
-            \DefAdressatNachname{} \\
-        }%
-    }%
-    \ifthenelse{\equal{\DefZweiterAdressatAnredeKopf}{}}{}{%
-        \DefZweiterAdressatAnredeKopf{}%
-        \ifthenelse{\equal{\DefZweiterAdressatVorname}{}}{}{%
-            \DefZweiterAdressatVorname{} %
-        }%
-        \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{%
-            \DefZweiterAdressatNachname{} \\
+% Ausrichtung des Adressaten
+\newcommand*{\DefAddressatAusrichtung}{links}%
+\newcommand*{\AddressatAusrichtung}[1]{%
+    \ifthenelse{\equal{#1}{links}}{%
+        \renewcommand*{\DefAddressatAusrichtung}{#1}%
+    }{%
+        \ifthenelse{\equal{#1}{rechts}}{%
+            \renewcommand*{\DefAddressatAusrichtung}{#1}%
+        }{%
+            \errmsg{Ausrichtung darf sein: 'links','rechts'.}
         }%
     }%
-    \ifthenelse{\equal{\DefAbteilung}{}}{}{%
-        \DefAbteilung\\
-    }%
-    \DefAnschriftStrasse\\
-    \DefAnschriftPLZOrt\\
 }%
 
-% Makro für Ort und Unterschrift
+% Adressat
+\newcommand{\Anschrift}{%
+    \ifthenelse{\equal{\DefAddressatAusrichtung}{rechts}}{%
+        \hspace*{\fill}%
+    }{}%
+    \parbox[t][4cm]{7cm}{%
+        \textbf{\DefFirma}\\
+        \ifthenelse{\equal{\DefAnredeKopf}{}}{}{%
+            \DefAnredeKopf{}%
+            \ifthenelse{\equal{\DefAdressatVorname}{}}{}{%
+                \DefAdressatVorname{} %
+            }%
+            \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
+                \DefAdressatNachname{} \\
+            }%
+        }%
+        \ifthenelse{\equal{\DefZweiterAdressatAnredeKopf}{}}{}{%
+            \DefZweiterAdressatAnredeKopf{}%
+            \ifthenelse{\equal{\DefZweiterAdressatVorname}{}}{}{%
+                \DefZweiterAdressatVorname{} %
+            }%
+            \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{%
+                \DefZweiterAdressatNachname{} \\
+            }%
+        }%
+        \ifthenelse{\equal{\DefAbteilung}{}}{}{%
+            \DefAbteilung\\
+        }%
+        \DefAnschriftStrasse\\
+        \DefAnschriftPLZOrt\\
+    }%
+}%
+
+% Makro fuer Ort und Unterschrift
 \newcommand*{\UnterschriftOrt}{%
     \Unterschrift~\\
     \DefOrtDatum%
 }%
 
-% Unterschrift als Bilddatei einfügen
+% Unterschrift als Bilddatei einfuegen
 \newcommand*{\Unterschrift}{%
     \ifthenelse{\equal{\DefUnterschriftenDatei}{}}{%
         \vspace{2\baselineskip}%
@@ -313,7 +396,7 @@
     }%
 }%
 
-% Abschnitt für die Hauptkapitel
+% Abschnitt fuer die Hauptkapitel
 % optional: kein Eintrag ins Inhaltsverzeichnis
 \newcommand*{\Abschnitt}[2][]{%
     \phantomsection%
@@ -351,7 +434,7 @@
 \newenvironment{Lebenslauf}{%
     \Abschnitt{\DefUeberschriftLebenslauf}
 }{%
-    % Seite um eine Zeile vergrößern, damit Unterschrift besser draufpasst.
+    % Seite um eine Zeile vergroessern, damit Unterschrift besser draufpasst.
     \enlargethispage{2\baselineskip}%
     \UnterschriftOrt%
     \clearpage
@@ -380,7 +463,7 @@
     }%
 }%
 
-% Tabelle für Lebenslauf
+% Tabelle fuer Lebenslauf
 \newlength{\AbstandAbschnitt}
 \newenvironment{AbschnittCV}[2][0.5]{%
     \Unterabschnitt{#2}%
@@ -415,20 +498,31 @@
     \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
         \DefAdressatNachname{}%
     }%
-    ,%
+    \ifthenelse{\equal{\DefSprache}{Deutsch}}{%
+        ,%
+    }{}%
     \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{
         \\%
         sehr geehrte\DefZweiterAdressatAnredeText{}%
         \DefZweiterAdressatNachname{}%
-        ,%
+        \ifthenelse{\equal{\DefSprache}{Deutsch}}{%
+            ,%
+        }{}%
     }%
 }%
 
-% Die Grußformel am Anschreibenende
+% Die Grussformel am Anschreibenende
 \newcommand{\Grussworte}{%
-    Über die Einladung zu einem persönlichen Gespräch freue ich mich und verbleibe
+    \ifthenelse{\equal{\DefSprache}{Deutsch}}{%
+        Über die Einladung zu einem persönlichen Gespräch freue ich mich und verbleibe
 
-    mit freundlichen Grüßen
+        mit freundlichen Grüßen
+    }{}%
+    \ifthenelse{\equal{\DefSprache}{Schweiz}}{%
+        Über die Einladung zu einem persönlichen Gespräch würde ich mich freuen.
+
+        Freundliche Grüsse
+    }{}%
 
     \Unterschrift~\\
 }%
@@ -444,7 +538,7 @@
     \textbf{Bewerbung als \DefBewerberstelle}%
 }%
 
-% Etwas Abstand vor dem Ort, um die Seite besser aufteilen zu können.
+% Etwas Abstand vor dem Ort, um die Seite besser aufteilen zu koennen.
 \newlength{\LenAbstandVorAnschreiben}
 \setlength{\LenAbstandVorAnschreiben}{\baselineskip}
 \newcommand*{\AbstandVorAnschreiben}[1]{\setlength{\LenAbstandVorAnschreiben}{#1\baselineskip}}
@@ -454,8 +548,8 @@
 \setlength{\LenAbstandZwischenAdressen}{0\baselineskip}
 \newcommand*{\AbstandZwischenAdressen}[1]{\setlength{\LenAbstandZwischenAdressen}{#1\baselineskip}}
 
-% Die Anschreibeseite wird bei Bedarf etwas vergrößert, da es hier keine
-% Fußzeile gibt.
+% Die Anschreibenseite wird bei Bedarf etwas vergroessert, da es hier keine
+% Fusszeile gibt.
 \newlength{\LenSeiteVergroessern}
 \setlength{\LenSeiteVergroessern}{0\baselineskip}
 \newcommand*{\AnschreibenSeiteVergroessern}[1]{\setlength{\LenSeiteVergroessern}{#1\baselineskip}}
@@ -482,7 +576,15 @@
         \vspace*{\LenAbstandVorAnschreiben}
 
         % Ort und Datum
-        \rightline{\DefOrtDatum}
+        \ifthenelse{\equal{\DefAddressatAusrichtung}{rechts}}{%
+            \hspace*{\fill}%
+            \parbox[t]{7cm}{%
+                \DefOrtDatum%
+            }
+        }{%
+            \hspace*{\fill}%
+            \DefOrtDatum%
+        }%
     \end{spacing}
 
 }%
@@ -536,7 +638,7 @@
     \Abschnitt{Zu meiner Person}
 
     \begin{spacing}{1.3}
-        \Absender[\large]
+        \AbsenderRechts[\large]
         \rightline{\DefXingProfil}
         \rightline{\DefLinkedInProfil}
         \vspace{1.5\baselineskip}
@@ -616,7 +718,7 @@
 }%
 
 % Anlagen einfuegen
-% Option "quer" (oder irgendein anderes Wort) für Querformat.
+% Option "quer" (oder irgendein anderes Wort) fuer Querformat.
 \newcommand*{\AnlageEinfuegen}[2][]{%
     \ifthenelse{\equal{#1}{}}{%
         \includepdf[pages=-,link,linkname=#2]{#2}%
