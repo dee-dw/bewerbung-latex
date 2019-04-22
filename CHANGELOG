@@ -1,5 +1,11 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 22.04.2019 (Version 1.7) =
+
+* "British" und "American" als Option für Sprache hinzugefügt (Danke an Ferand Dalatieh)
+** Neben Anrede, Begrüßung und Schlussformel wurde auch die Vorlage übersetzt.
+** Am besten nutzt man die "application.tex"-Datei, um die eine englischsprachige Bewerbung auszufuellen.
+
 = 22.04.2019 (Version 1.6) =
 
 * "Schweiz" als Option für Sprache eingefügt (Anregung von Dirk)

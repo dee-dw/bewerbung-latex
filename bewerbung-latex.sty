@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2019/04/22 v1.6]
+\ProvidesPackage{bewerbung-latex}[2019/04/22 v1.7]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -19,7 +19,7 @@
 \else%
     \RequirePackage{fontspec}         % UTF8-Kodierung
 \fi%
-\RequirePackage[ngerman]{babel}   % deutsche Silbentrennung
+\RequirePackage[english,ngerman]{babel}   % englische und deutsche Spracheinstellung
 %\RequirePackage{microtype}        % verbesserte Typographie (geht nicht mit Sans Serif, daher auskommentiert)
 \RequirePackage{scrlayer-scrpage} % Seitenlayout festlegen
 \RequirePackage{graphicx}         % Einbindung von Grafiken
@@ -77,7 +77,7 @@
 % Sprache einstellen
 % Die Sprache regelt einige der Floskeln, Sonderzeichen etc.
 % Standard ist "Deutsch".
-% Erlaubt sind zusaetzlich: "Schweiz"
+% Erlaubt sind zusaetzlich: "Schweiz", "British", "American"
 \newcommand*{\DefSprache}{Deutsch}%
 \newcommand*{\SetzeSprache}[1]{%
     \ifthenelse{\equal{#1}{Deutsch}}{%
@@ -90,13 +90,34 @@
             \AddressatAusrichtung{rechts}%
             \AbsenderAusrichtung{links}%
         }{%
-            \errmsg{Unbekannte Sprachangabe: #1.}
+            \ifthenelse{\equal{#1}{British}}{%
+                \renewcommand*{\DefSprache}{British}%
+                \AddressatAusrichtung{links}%
+                \AbsenderAusrichtung{rechts}%
+                \renewcommand*{\DefAnredeText}{ sirs and madams}
+                \renewcommand*{\DefUeberschriftLebenslauf}{Curriculum Vitae}
+            }{%
+                \ifthenelse{\equal{#1}{American}}{%
+                    \renewcommand*{\DefSprache}{American}%
+                    \AddressatAusrichtung{links}%
+                    \AbsenderAusrichtung{rechts}%
+                    \renewcommand*{\DefAnredeText}{ sirs and madams}
+                    \renewcommand*{\DefUeberschriftLebenslauf}{Resumé}
+                }{%
+                    \errmsg{Unbekannte Sprachangabe: #1.}
+                }%
+            }%
         }%
     }%
 }%
 
 % Definition des heutigen Datums
-\newcommand*{\HeutigerTag}{\today}
+\newcommand*{\HeutigerTag}{%
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        \selectlanguage{english}%
+    }{}%
+    \today%
+}
 
 % Definitionen zur eigenen Person
 \newcommand*{\DefVollerName}{}
@@ -105,6 +126,8 @@
 \newcommand*{\DefTelefon}{}
 \newcommand*{\DefEMail}{}
 \newcommand*{\DefOrtDatum}{}
+\newcommand*{\DefOrt}{}
+\newcommand*{\DefDatum}{}
 \newcommand*{\DefGeburtstag}{}
 \newcommand*{\DefGeburtsort}{}
 \newcommand*{\DefDetails}{}
@@ -125,7 +148,12 @@
     \hypersetup{urlcolor=#1}%
     \renewcommand*{\DefEMail}{#2{} \href{mailto:#3}{#3}}%
 }
+% Aus Kompatibilitaetsgruenden bleibt die alte Definition \OrtDatum erhalten,
+% sollte aber nicht mehr genutzt werden.
 \newcommand*{\OrtDatum}[1]{\renewcommand*{\DefOrtDatum}{#1}}
+\newcommand*{\Ort}[1]{\renewcommand*{\DefOrt}{#1}}
+\newcommand*{\Datum}[1]{\renewcommand*{\DefDatum}{#1}}
+
 \newcommand*{\Geburtstag}[1]{\renewcommand*{\DefGeburtstag}{#1}}
 \newcommand*{\Geburtsort}[1]{\renewcommand*{\DefGeburtsort}{#1}}
 \newcommand*{\Details}[1]{\renewcommand*{\DefDetails}{#1}}
@@ -237,17 +265,42 @@
 \newcommand*{\Anrede}[1]{%
     \ifthenelse{\equal{\DefAdressatNachname}{}}{%
         \renewcommand*{\DefAnredeKopf}{}%
-        \renewcommand*{\DefAnredeText}{ Damen und Herren}%
-    }{%
-        \ifthenelse{\equal{#1}{Herr}}{%
-            \renewcommand*{\DefAnredeKopf}{Herrn \DefAdressatTitelKurz}%
-            \renewcommand*{\DefAnredeText}{r Herr \DefAdressatTitel}%
+        \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+            \renewcommand*{\DefAnredeText}{ Sir/Madam}%
         }{%
-            \ifthenelse{\equal{#1}{Frau}}{%
-                \renewcommand*{\DefAnredeKopf}{Frau \DefAdressatTitelKurz{}}%
-                \renewcommand*{\DefAnredeText}{ Frau \DefAdressatTitel{}}%
-            }{
-                \errmsg{Anrede darf sein: '','Herr','Frau'.}
+            \renewcommand*{\DefAnredeText}{ Damen und Herren}%
+        }%
+    }{%
+        \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+            \ifthenelse{\equal{#1}{Mr} \OR \equal{#1}{Mrs} \OR \equal{#1}{Ms}}{%
+                \ifthenelse{\equal{\DefAdressatTitel}{}}{%
+                    \ifthenelse{\equal{\DefSprache}{British}}{%
+                        \renewcommand*{\DefAnredeKopf}{#1}%
+                        \renewcommand*{\DefAnredeText}{ #1}%
+                    }{%
+                        % Im Amerikanischen mit Punkt.
+                        \renewcommand*{\DefAnredeKopf}{#1.}%
+                        \renewcommand*{\DefAnredeText}{ #1.}%
+                    }%
+                }{%
+                    % Wenn ein Titel definiert ist, faellt die Anredeform im Englischen weg.
+                    \renewcommand*{\DefAnredeKopf}{\DefAdressatTitelKurz}%
+                    \renewcommand*{\DefAnredeText}{ \DefAdressatTitel}%
+                }%
+            }{%
+                \errmsg{Anrede darf sein: '','Mr','Mrs','Ms'.}
+            }%
+        }{%
+            \ifthenelse{\equal{#1}{Herr}}{%
+                \renewcommand*{\DefAnredeKopf}{Herrn \DefAdressatTitelKurz}%
+                \renewcommand*{\DefAnredeText}{r Herr \DefAdressatTitel}%
+            }{%
+                \ifthenelse{\equal{#1}{Frau}}{%
+                    \renewcommand*{\DefAnredeKopf}{Frau \DefAdressatTitelKurz{}}%
+                    \renewcommand*{\DefAnredeText}{ Frau \DefAdressatTitel{}}%
+                }{
+                    \errmsg{Anrede darf sein: '','Herr','Frau'.}
+                }%
             }%
         }%
     }%
@@ -275,15 +328,36 @@
         \renewcommand*{\DefZweiterAdressatAnredeKopf}{}%
         \renewcommand*{\DefZweiterAdressatAnredeText}{}%
     }{%
-        \ifthenelse{\equal{#1}{Herr}}{%
-            \renewcommand*{\DefZweiterAdressatAnredeKopf}{Herrn \DefZweiterAdressatTitelKurz}%
-            \renewcommand*{\DefZweiterAdressatAnredeText}{r Herr \DefZweiterAdressatTitel}%
+        \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+            \ifthenelse{\equal{#1}{Mr} \OR \equal{#1}{Mrs} \OR \equal{#1}{Ms}}{%
+                \ifthenelse{\equal{\DefZweiterAdressatTitel}{}}{%
+                    \ifthenelse{\equal{\DefSprache}{British}}{%
+                        \renewcommand*{\DefZweiterAdressatAnredeKopf}{#1}%
+                        \renewcommand*{\DefZweiterAdressatAnredeText}{ #1}%
+                    }{%
+                        % Im Amerikanischen mit Punkt.
+                        \renewcommand*{\DefZweiterAdressatAnredeKopf}{#1.}%
+                        \renewcommand*{\DefZweiterAdressatAnredeText}{ #1.}%
+                    }%
+                }{%
+                    % Wenn ein Titel definiert ist, faellt die Anredeform im Englischen weg.
+                    \renewcommand*{\DefZweiterAdressatAnredeKopf}{\DefZweiterAdressatTitelKurz}%
+                    \renewcommand*{\DefZweiterAdressatAnredeText}{ \DefZweiterAdressatTitel}%
+                }%
+            }{%
+                \errmsg{Anrede darf sein: '','Mr','Mrs','Ms'.}
+            }%
         }{%
-            \ifthenelse{\equal{#1}{Frau}}{%
-                \renewcommand*{\DefZweiterAdressatAnredeKopf}{Frau \DefZweiterAdressatTitelKurz}%
-                \renewcommand*{\DefZweiterAdressatAnredeText}{ Frau \DefZweiterAdressatTitel}%
-            }{
-                \errmsg{Anrede darf sein: '','Herr','Frau'.}
+            \ifthenelse{\equal{#1}{Herr}}{%
+                \renewcommand*{\DefZweiterAdressatAnredeKopf}{Herrn \DefZweiterAdressatTitelKurz}%
+                \renewcommand*{\DefZweiterAdressatAnredeText}{r Herr \DefZweiterAdressatTitel}%
+            }{%
+                \ifthenelse{\equal{#1}{Frau}}{%
+                    \renewcommand*{\DefZweiterAdressatAnredeKopf}{Frau \DefZweiterAdressatTitelKurz}%
+                    \renewcommand*{\DefZweiterAdressatAnredeText}{ Frau \DefZweiterAdressatTitel}%
+                }{
+                    \errmsg{Anrede darf sein: '','Herr','Frau'.}
+                }%
             }%
         }%
     }%
@@ -339,7 +413,14 @@
 % Makro fuer Ort und Unterschrift
 \newcommand*{\UnterschriftOrt}{%
     \Unterschrift~\\
-    \DefOrtDatum%
+    \ifthenelse{\equal{\DefOrtDatum}{}}{%
+        \ifthenelse{\equal{\DefOrt}{}}{}{%
+            \DefOrt, %
+        }%
+        \DefDatum%
+    }{%
+        \DefOrtDatum
+    }%
 }%
 
 % Unterschrift als Bilddatei einfuegen
@@ -494,20 +575,47 @@
 
 % Anrede im Brief
 \newcommand*{\DefAnrede}{%
-    Sehr geehrte\DefAnredeText{}%
-    \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
-        \DefAdressatNachname{}%
-    }%
-    \ifthenelse{\equal{\DefSprache}{Deutsch}}{%
-        ,%
-    }{}%
-    \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{
-        \\%
-        sehr geehrte\DefZweiterAdressatAnredeText{}%
-        \DefZweiterAdressatNachname{}%
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        Dear\DefAnredeText{}%
+        \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
+            \DefAdressatNachname{}%
+        }%
+        \ifthenelse{\equal{\DefSprache}{British}}{%
+            % kein Komma im Britischen
+        }{%
+            % Doppelpunkt bei Geschaeftsbriefen
+            :%
+        }%
+        \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{
+            and\DefZweiterAdressatAnredeText{}%
+            \DefZweiterAdressatNachname{}%
+            \ifthenelse{\equal{\DefSprache}{British}}{%
+                % kein Komma im Britischen
+            }{%
+                % Doppelpunkt bei Geschaeftsbriefen
+                :%
+            }%
+        }%
+    }{%
+        Sehr geehrte\DefAnredeText{}%
+        \ifthenelse{\equal{\DefAdressatNachname}{}}{}{%
+            \DefAdressatNachname{}%
+        }%
         \ifthenelse{\equal{\DefSprache}{Deutsch}}{%
             ,%
-        }{}%
+        }{%
+            % kein Komma in der Schweiz
+        }%
+        \ifthenelse{\equal{\DefZweiterAdressatNachname}{}}{}{
+            \\%
+            sehr geehrte\DefZweiterAdressatAnredeText{}%
+            \DefZweiterAdressatNachname{}%
+            \ifthenelse{\equal{\DefSprache}{Deutsch}}{%
+                ,%
+            }{%
+                % kein Komma in der Schweiz
+            }%
+        }%
     }%
 }%
 
@@ -523,6 +631,15 @@
 
         Freundliche Grüsse
     }{}%
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        Thank you for your consideration. I look forward to the opportunity of a personal interview.
+
+        \ifthenelse{\equal{\DefAnredeText}{ Sir/Madam}}{%
+            Yours Sincerely,
+        }{%
+            Sincerely,
+        }%
+    }{}%
 
     \Unterschrift~\\
 }%
@@ -535,7 +652,11 @@
 
 % Betreff
 \newcommand*{\Betreff}{%
-    \textbf{Bewerbung als \DefBewerberstelle}%
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        \textbf{Subject: Application as \DefBewerberstelle}%
+    }{%
+        \textbf{Bewerbung als \DefBewerberstelle}%
+    }%
 }%
 
 % Etwas Abstand vor dem Ort, um die Seite besser aufteilen zu koennen.
@@ -579,11 +700,25 @@
         \ifthenelse{\equal{\DefAddressatAusrichtung}{rechts}}{%
             \hspace*{\fill}%
             \parbox[t]{7cm}{%
-                \DefOrtDatum%
+                \ifthenelse{\equal{\DefOrtDatum}{}}{%
+                    \ifthenelse{\equal{\DefOrt}{} \OR \equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{}{%
+                        \DefOrt, %
+                    }%
+                    \DefDatum%
+                }{%
+                    \DefOrtDatum%
+                }%
             }
         }{%
             \hspace*{\fill}%
-            \DefOrtDatum%
+            \ifthenelse{\equal{\DefOrtDatum}{}}{%
+                \ifthenelse{\equal{\DefOrt}{} \OR \equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{}{%
+                    \DefOrt, %
+                }%
+                \DefDatum%
+            }{%
+                \DefOrtDatum%
+            }%
         }%
     \end{spacing}
 
@@ -606,21 +741,36 @@
 \newenvironment{Anschreiben}{%
     % Titel und Autor des PDFs werden automatisch festgelegt,
     % was aber erst nach der Definition des Namens geht.
-    \hypersetup{%
-        pdftitle={Bewerbung bei \DefFirma},
-        pdfauthor={\DefVollerName},
-        pdfcreator={\DefVollerName}
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        \hypersetup{%
+            pdftitle={Application for \DefFirma},
+            pdfauthor={\DefVollerName},
+            pdfcreator={\DefVollerName}
+        }%
+        \addcontentsline{toc}{section}{Cover letter}%
+    }{%
+        \hypersetup{%
+            pdftitle={Bewerbung bei \DefFirma},
+            pdfauthor={\DefVollerName},
+            pdfcreator={\DefVollerName}
+        }%
+        \addcontentsline{toc}{section}{Anschreiben}%
     }%
-    \addcontentsline{toc}{section}{Anschreiben}%
 
     \AnschreibenKopf
     \begin{spacing}{1.15}
-        \Betreff
-
         \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
             \begin{flushleft}%
         }%
-            \DefAnrede
+            \ifthenelse{\equal{\DefSprache}{British}}{%
+                \DefAnrede
+
+                \Betreff
+            }{%
+                \Betreff
+
+                \DefAnrede
+            }%
 
 }{%
 
@@ -635,7 +785,11 @@
 }%
 
 \newcommand{\MeineSeite}{%
-    \Abschnitt{Zu meiner Person}
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        \Abschnitt{About me}%
+    }{%
+        \Abschnitt{Zu meiner Person}%
+    }
 
     \begin{spacing}{1.3}
         \AbsenderRechts[\large]
@@ -643,7 +797,11 @@
         \rightline{\DefLinkedInProfil}
         \vspace{1.5\baselineskip}
 
-        \rightline{geboren am \DefGeburtstag}
+        \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+            \rightline{born on \DefGeburtstag}
+        }{%
+            \rightline{geboren am \DefGeburtstag}
+        }
         \rightline{in \DefGeburtsort}
         \vspace{0.5\baselineskip}
 
@@ -651,7 +809,11 @@
 
         \rule{10cm}{0.6pt} \\
         \ifthenelse{\equal{\DefAusbildungsgrad}{}}{}{%
-            {\large \textbf{Ausbildungsgrad}}\\
+            \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+                {\large \textbf{Level of education}}\\
+            }{%
+                {\large \textbf{Ausbildungsgrad}}\\
+            }%
             \DefAusbildungsgrad\\
         }%
 
@@ -665,7 +827,11 @@
 }%
 
 \newenvironment{Motivation}{%
-    \Abschnitt{Über mich und meine Motivation}
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        \Abschnitt{My motivation}
+    }{%
+        \Abschnitt{Über mich und meine Motivation}
+    }%
  
     \begin{spacing}{1.3}
         \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
@@ -700,7 +866,11 @@
 
 % Definition des Anlagenverzeichnisses
 \newenvironment{Anlagenverzeichnis}{%
-    \Abschnitt{Anlagenverzeichnis}
+    \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
+        \Abschnitt{Appendix index}
+    }{%
+        \Abschnitt{Anlagenverzeichnis}
+    }%
 
     \begin{spacing}{1.1}
 }{%

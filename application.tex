@@ -38,7 +38,7 @@
 % Zuerst die Sprache festlegen.
 % Per Standard ist "Deutsch" gesetzt.
 % Zusaetzliche, moegliche Angaben sind: "Schweiz", "British", "American"
-%\SetzeSprache{British}          % optional
+\SetzeSprache{British}          % optional
 
 % Eigene Daten festgelegt.
 \VollerName{Eva Mustermann}
@@ -48,7 +48,7 @@
 % davor angeben. Der Wert darf auch leer sein.
 % Bei Telefonnummer ggf. Laenderkennung ergaenzen, wenn
 % die Telefonnummer nicht im Land des Empfaengers ist.
-\bwTelefon{Tel.:}{0170 567890}
+\bwTelefon{}{0170 567890}
 %\bwTelefon{\Telefon}{+49 170 567890}
 % Als erstes Argument kann man bei der E-Mail eine Angabe
 % davor angeben (z.B. "E-Mail:". Der Wert darf auch leer sein.
@@ -60,12 +60,12 @@
 %\bwEMail{\Email}{eva.mustermann@musterstadt.de}
 \Ort{Berlin}
 \Datum{\HeutigerTag}
-\Geburtstag{1. Januar 1985}
+\Geburtstag{January 1, 1985}
 \Geburtsort{Berlin}
 % Der Ausbildungsgrad und die Details sind optional.
 % Leer lassen oder auskommentieren, wenn nichts angezeigt werden soll.
-\Details{ledig, ortsungebunden} % verheiratet, 2 Kinder, etc.
-\Ausbildungsgrad{Promovierte Veterinärmedizinerin}    % optional
+\Details{single, travel flexible} % verheiratet, 2 Kinder, etc.
+\Ausbildungsgrad{Doctor of Veterinary Medicine}    % optional
 % Optionales Xing- und Linkedin-Profil
 % Beides wird nur auf der Persoenlichen Seite angezeigt,
 % nicht im Anschreiben.
@@ -92,17 +92,17 @@
 % Wenn der Nachname leergelassen oder auskommentiert wird,
 % wird die Anrede automatisch durch "Damen und Herren" ersetzt.
 \Firma{Hell AG}
-\Abteilung{Personalabteilung}            % optional
+\Abteilung{Human Resources}            % optional
 \AdressatVorname{Christina}              % optional
 \AdressatNachname{Funkel}                % ggf. optional
 \AnschriftStrasse{Route 66}
-\AnschriftPLZOrt{00000 Havenfürst}
+\AnschriftPLZOrt{00000 Havenfuerst}
 % Als optionales Argument hat der Titel eine Kurzform, die nur im Briefkopf
 % benutzt wird. Wenn das optionale Argument fehlt, wird die normale Angabe 
 % fuer Briefkopf und Anrede benutzt.
 % Achtung: Im Englischen ersetzt ein Titel die Anredeform.
 % Daneben werden im Britischen keine Punkte gesetzt (muss man selbst dran denken!)
-\AdressatTitel[Prof. Dr.]{Professorin}   % optional
+\AdressatTitel[Prof]{Professor}   % optional
 
 % Achtung: Anrede muss am Ende dieser Liste stehen,
 % damit dies korrekt um Titel und Name ergaenzt wird!
@@ -110,17 +110,17 @@
 % British/American: Mr, Mrs, Ms oder leer lassen
 % Achtung: Im Amerikanischen wird automatisch ein Punkt ergaenzt.
 % Achtung: Im Englischen ersetzt ein Titel die Anredeform.
-\Anrede{Frau}
+\Anrede{Ms}
 
 % Man kann hier einen zweiten Ansprechpartner beim Anschreiben angeben.
 % Die Adresszeile wird entsprechend ergaenzt.
 %\ZweiterAdressatVorname{Pitti}            % optional
 %\ZweiterAdressatNachname{Platsch}         % ggf. optional
-%\ZweiterAdressatTitel[Dr.]{Doktor}        % optional
-%\ZweiterAdressatAnrede{Herr}
+%\ZweiterAdressatTitel[Dr]{Doctor}         % optional
+%\ZweiterAdressatAnrede{Mr}
 
 % Die Stelle, auf die man sich bewirbt
-\Bewerberstelle{Veterinär-Mediziner (m/w/d)}
+\Bewerberstelle{Veterinarian (f/w/d)}
 
 % Beginn des Dokuments, nicht aendern!
 \begin{document}
@@ -181,13 +181,13 @@
 \begin{Anschreiben}
     % Hinweis Anfang – nach dem Lesen loeschen!
     % In der Schweiz beginnt man den Satz im Uebrigen gross, da kein
-    % Komma bei der Anrede benutzt wird.
-    hier steht mein Bewerbungstext, wieso ich mich auf die Stelle bewerbe
-    und bei der Firma anfangen möchte. Der Text sollte nicht zu lang sein
-    und nur die wichtigsten Details enthalten.
-    
-    Den Hinweis hier muss ich natürlich löschen! Alles, was in der Vorlage
-    zwischen den Kommentarzeilen steht, kann weg.
+    % Komma bei der Anrede benutzt wird. Im Englischen faengt man auch gross an.
+    Here comes the application text. Why do I want to apply for this job
+    and start in this business. The text should not be too long and contain
+    only the most important details.
+
+    Please delete this comment! Everything in this template that is enveloped
+    by comment lines can be removed.
     % Hinweis Ende – nach dem Lesen loeschen!
 \end{Anschreiben}
 
@@ -252,12 +252,12 @@
 
 \begin{Lebenslauf}
 
-\begin{AbschnittCV}{Promotion}%
+\begin{AbschnittCV}{Doctorate}%
 % Das erste Argument ist die Dauer, das zweite die Bezeichnung.
 % Wichtig: Wenn man mehrere Zeilen zu einem Eintrag hat, den Umbruch mit
 % \newline erzwingen und nicht mit \\, weil intern eine Tabelle benutzt wird!
-\EintragCV{Mai 2015}{Doktor der Veterinärmedizin Dr.\,vet. \newline
-                     Doktorarbeit an der Freien Universität Berlin: \newline
+\EintragCV{Mai 2015}{Doctor of Veterinary Medicine Dr.\,vet. \newline
+                     Doctoral thesis at the Free University of Berlin: \newline
                      „\textit{Habitatsverhalten von Meerschweinchen unter Einfluss von Halluzinogenen}“
 }
 \end{AbschnittCV}
@@ -271,27 +271,27 @@
 % unterhalb des Eintrags gelassen wird.
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0.5, also eine halbe Zeile.
-\EintragCV[1]{September 2012}{Abschluss als Diplom-Veterinärmedizinerin (Bewertung „sehr gut“) \newline
-                           Diplomarbeit an der Freien Universität Berlin: \newline
+\EintragCV[1]{September 2012}{Diploma degree in Veterinary Medicine (Evaluation „very good“) \newline
+                           Diploma thesis at the Free University of Berlin: \newline
                            „\textit{Motorische Analyse der Klapperschlange – Bewegung und Fortpflanzung}“
 }
-\EintragCV{2006 – 2012}{Studium Diplom-Veterinärmedizin \newline
-                        an der Freien Universität Berlin \newline
-                        Schwerpunkte: Säugende Reptilien
+\EintragCV{2006 – 2012}{Diploma Study in Veterinary Medicine \newline
+                        at the Free University of Berlin \newline
+                        Main focus: Säugende Reptilien
 }
 \end{AbschnittCV}
 
-\begin{AbschnittCV}{Freiwilliges Soziales Jahr}%
+\begin{AbschnittCV}{Voluntary social year}%
 \EintragCV{2005 – 2006}{Malteser-Krankenhaus Berlin}
 \end{AbschnittCV}
 
-\begin{AbschnittCV}{Schulbildung}%
+\begin{AbschnittCV}{Education}%
 \EintragCV{Juni 2005}  {Abiturprüfung bestanden mit Note 1,3}
 \EintragCV{1998 – 2005}{Gymnasium Pestalozzischule Berlin}
 \end{AbschnittCV}
 
-\begin{AbschnittCV}{Veröffentlichungen}%
-\EintragCV{2010}{„\textit{Cutting Glasses with the Teeth of Crotalus adamanteus}“ für „Ninth International Conference of World Wide \mbox{Veterinary} Medicine“ in Barcelona (Spanien), Januar 2011}
+\begin{AbschnittCV}{Publications}%
+\EintragCV{2010}{„\textit{Cutting Glasses with the Teeth of Crotalus adamanteus}“ for „Ninth International Conference of World Wide \mbox{Veterinary} Medicine“ in Barcelona (Spain), January 2011}
 \end{AbschnittCV}
 
 % Wenn man will, kann man hier (oder irgendwo anders) den Lebenslauf
@@ -299,35 +299,35 @@
 % wenn die Tabelle nicht gut unterbrochen wird.
 \NeueSeiteAbschnittCV
 
-\begin{AbschnittCV}{Praktische Tätigkeiten}%
-\EintragCV{2003 – 2004 und \newline%
-           2006 – 2012}{Tierarzt-Praxis Dr. Hauser, Berlin}
+\begin{AbschnittCV}{Practical jobs}%
+\EintragCV{2003 – 2004 and \newline%
+           2006 – 2012}{Veterinary practice Dr Hauser, Berlin}
 % Unterabschnitte koennen eine feinere Gliederung bestimmter Taetigkeiten bieten
-\UnterabschnittCV{Kernarbeitsgebiete}{%
-    \punkt Hunden die Pfötchen halten
-    \punkt Katzen kraulen
+\UnterabschnittCV{Main work domains}{%
+    \punkt holding the paws of dogs
+    \punkt fondling cats
 }
-\UnterabschnittCV{Weitere Aufgaben}{%
-    \punkt Wasser besorgen
+\UnterabschnittCV{Further tasks}{%
+    \punkt acquire water
 }
-\EintragCV{2005}{Volontariat Udawalawe-Nationalpark, Sri Lanka}
-\UnterabschnittCV{Kernarbeitsgebiete}{%
-    \punkt Elefanten füttern
-}
-\end{AbschnittCV}
-
-\begin{AbschnittCV}{Besondere Kenntnisse}%
-\EintragCV{Sprachen}{Englisch: sehr gut in Schrift und gut in Sprache \newline
-                     Französisch: Grundkenntnisse \newline
-                     Latein: Abschluss mit Latinum
-}
-\EintragCV{Medizin}{Allgemeine Veterinärmedizin \newline
-                    Reptilien
+\EintragCV{2005}{Traineeship Udawalawe national park, Sri Lanka}
+\UnterabschnittCV{Main work domains}{%
+    \punkt feeding elephants
 }
 \end{AbschnittCV}
 
-\begin{AbschnittCV}{Hobbys und Interessen}%
-\EintragCV{}{Literatur \newline
+\begin{AbschnittCV}{Special knowledge}%
+\EintragCV{Languages}{English: highly proficient in spoken and written English \newline
+                     French: basic communication skills \newline
+                     Latin: Latin proficiency certificate
+}
+\EintragCV{Medecine}{General veterinary medicine \newline
+                    Reptiles
+}
+\end{AbschnittCV}
+
+\begin{AbschnittCV}{Hobbies and interests}%
+\EintragCV{}{Literature \newline
              Badminton
 }
 \end{AbschnittCV}
@@ -368,18 +368,18 @@
 % im Verzeichnis entsprechend verlinkt und der Eintrag unterstrichen.
 
 \begin{Anlagenverzeichnis}
-    \AbschnittAnlage{Arbeitszeugnisse}
+    \AbschnittAnlage{Certificate of employment}
     \begin{Auflistung}
-        \Anlage{Tierarzt-Praxis Dr. Hauser}
-        \Anlage{FSJ, Malteser-Krankenhaus Berlin}
+        \Anlage{Veterinary practice, Dr Hauser Berlin}
+        \Anlage{VSY, Malteser-Krankenhaus Berlin}
     \end{Auflistung}
 
-    \AbschnittAnlage{Zeugnisse}
+    \AbschnittAnlage{Certificates}
     \begin{Auflistung}
-        \Anlage{Doktorurkunde}
-        \Anlage[diplomurkunde.pdf]{Diplomurkunde}
-        \Anlage{Diplomzeugnis}
-        \Anlage{Abiturzeugnis}
+        \Anlage{doctoral degree certificate}
+        \Anlage[diplomurkunde.pdf]{diploma degree certificate}
+        \Anlage{diploma record}
+        \Anlage{graduation record}
     \end{Auflistung}
 \end{Anlagenverzeichnis}
 
