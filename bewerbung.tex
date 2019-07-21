@@ -38,7 +38,7 @@
 % Zuerst die Sprache festlegen.
 % Per Standard ist "Deutsch" gesetzt.
 % Zusaetzliche, moegliche Angaben sind: "Schweiz", "British", "American"
-%\SetzeSprache{British}          % optional
+%\SetzeSprache{Schweiz}          % optional
 
 % Eigene Daten festgelegt.
 \VollerName{Eva Mustermann}
@@ -141,7 +141,7 @@
 % Deutsch: rechts
 % Schweiz: links
 % Aber man kann es manuell umschalten, wenn man will.
-%\AbsenderAusrichtung{rechts}          % optional
+%\AbsenderAusrichtung{links}          % optional
 
 % Ausrichtung des Adressaten im Adressfeld
 % Es gibt Laender, wo das Adressfeld nicht links,
@@ -149,17 +149,22 @@
 % Deutsch: links
 % Schweiz: rechts
 % Aber man kann es manuell umschalten, wenn man will.
-%\AddressatAusrichtung{links}         % optional
+%\AddressatAusrichtung{rechts}         % optional
 
 % Abstand zwischen dem Absender und dem Adressat im Anschreiben.
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0.
-%\AbstandZwischenAdressen{0}      % optional
+\AbstandZwischenAdressen{0}      % optional
 
 % Abstand vor dem eigentlichen Anschreiben (inkl. Ort und Datum).
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 1.
-\AbstandVorAnschreiben{3}
+\AbstandVorAnschreiben{3}      % optional
+
+% Abstand zwischen dem Ort und Datum und der Betreffzeile.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
+% Der Standard-Wert ist 1.
+\AbstandZwischenDatumUndBetreff{1}     % optional
 
 % Anschreibenseite vergroessern, d.h. es ist damit moeglich, ueber den
 % eigentlichen unteren Rand zu schreiben, falls das Anschreiben etwas
@@ -167,12 +172,12 @@
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0. Als Maximalwert sollte man 3 einstellen, ansonsten
 % wirkt das Anschreiben vom Aufbau sehr unausgeglichen.
-\AnschreibenSeiteVergroessern{0}
+\AnschreibenSeiteVergroessern{0}     % optional
 
 % Abstand zwischen Unterschrift und den Anlagen im Anschreiben
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 1.
-\AbstandVorAnlagen{2}
+\AbstandVorAnlagen{2}     % optional
 
 % Hinweis auf Anlagen
 % Wenn nicht benoetigt, dann einfach auskommentieren.

@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2019/04/22 v1.7]
+\ProvidesPackage{bewerbung-latex}[2019/07/21 v1.8]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -419,7 +419,7 @@
         }%
         \DefDatum%
     }{%
-        \DefOrtDatum
+        \DefOrtDatum%
     }%
 }%
 
@@ -669,6 +669,11 @@
 \setlength{\LenAbstandZwischenAdressen}{0\baselineskip}
 \newcommand*{\AbstandZwischenAdressen}[1]{\setlength{\LenAbstandZwischenAdressen}{#1\baselineskip}}
 
+% Abstand zwischen dem Ort und Datum und der Betreffzeile.
+\newlength{\LenAbstandZwischenDatumUndBetreff}
+\setlength{\LenAbstandZwischenDatumUndBetreff}{1\baselineskip-2.5\baselineskip}
+\newcommand*{\AbstandZwischenDatumUndBetreff}[1]{\setlength{\LenAbstandZwischenDatumUndBetreff}{#1\baselineskip-2.5\baselineskip}}
+
 % Die Anschreibenseite wird bei Bedarf etwas vergroessert, da es hier keine
 % Fusszeile gibt.
 \newlength{\LenSeiteVergroessern}
@@ -708,7 +713,7 @@
                 }{%
                     \DefOrtDatum%
                 }%
-            }
+            }%
         }{%
             \hspace*{\fill}%
             \ifthenelse{\equal{\DefOrtDatum}{}}{%
@@ -720,6 +725,9 @@
                 \DefOrtDatum%
             }%
         }%
+        
+        % Abstand zwischen Datum/Ort und der Betreffzeile
+        \vspace*{\LenAbstandZwischenDatumUndBetreff}%
     \end{spacing}
 
 }%
@@ -757,7 +765,7 @@
         \addcontentsline{toc}{section}{Anschreiben}%
     }%
 
-    \AnschreibenKopf
+    \AnschreibenKopf%
     \begin{spacing}{1.15}
         \ifthenelse{\boolean{AnschreibenBlocksatz}}{}{%
             \begin{flushleft}%

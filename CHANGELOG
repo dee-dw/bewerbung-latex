@@ -1,5 +1,9 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 21.07.2019 (Version 1.8) =
+
+* Neuer Befehl \AbstandZwischenDatumUndBetreff, um Abstand zwischen Datum und Betreff anzupassen (Anregung von Willi)
+
 = 22.04.2019 (Version 1.7) =
 
 * "British" und "American" als Option für Sprache hinzugefügt (Danke an Ferand Dalatieh)
