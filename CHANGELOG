@@ -1,8 +1,12 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 30.10.2019 (Version 2.0) =
+
+* Bugfix: Abstaende mit Blocksatz sind jetzt identisch zu Flattersatz (Hinweis an DK)
+
 = 30.10.2019 (Version 1.9) =
 
-* Unterschrift im Lebenslauf auch rechtsbuendig darstellbar (Anregung von Annika)
+* Unterschrift im Lebenslauf mit \LebenslaufUnterschriftAusrichtung auch rechtsbuendig darstellbar (Anregung von Annika)
 
 = 21.07.2019 (Version 1.8) =
 
