@@ -159,7 +159,12 @@
 % Abstand vor dem eigentlichen Anschreiben (inkl. Ort und Datum).
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 1.
-\AbstandVorAnschreiben{3}
+\AbstandVorAnschreiben{3}      % optional
+
+% Abstand zwischen dem Ort und Datum und der Betreffzeile.
+% Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
+% Der Standard-Wert ist 1.
+\AbstandZwischenDatumUndBetreff{1}     % optional
 
 % Anschreibenseite vergroessern, d.h. es ist damit moeglich, ueber den
 % eigentlichen unteren Rand zu schreiben, falls das Anschreiben etwas
@@ -167,12 +172,12 @@
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 0. Als Maximalwert sollte man 3 einstellen, ansonsten
 % wirkt das Anschreiben vom Aufbau sehr unausgeglichen.
-\AnschreibenSeiteVergroessern{0}
+\AnschreibenSeiteVergroessern{0}     % optional
 
 % Abstand zwischen Unterschrift und den Anlagen im Anschreiben
 % Gemessen wird in Zeilen, d.h. der Wert 1.5 steht fuer anderthalb Zeilen.
 % Der Standard-Wert ist 1.
-\AbstandVorAnlagen{2}
+\AbstandVorAnlagen{2}     % optional
 
 % Hinweis auf Anlagen
 % Wenn nicht benoetigt, dann einfach auskommentieren.
@@ -249,6 +254,11 @@
 % Achtung: Man sollte es nicht zu bunt treiben!
 \AbschnittFarbe{Blue}                  % optional
 \AbschnittLinienFarbe{Blue}            % optional
+
+% Ausrichtung der Unterschrift im Lebenslauf.
+% Moegliche Angaben sind: links oder rechts (mittig finde ich zu aussergewoehnlich)
+% Per Standard wird "links" ausgewaehlt.
+\LebenslaufUnterschriftAusrichtung{links}         % optional
 
 \begin{Lebenslauf}
 

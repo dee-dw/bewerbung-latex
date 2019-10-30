@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2019/07/21 v1.8]
+\ProvidesPackage{bewerbung-latex}[2019/10/30 v1.9]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -511,13 +511,35 @@
 \newcommand*{\DefUeberschriftLebenslauf}{Lebenslauf}
 \newcommand*{\UeberschriftLebenslauf}[1]{\renewcommand*{\DefUeberschriftLebenslauf}{#1}}
 
+% Ausrichtung der Unterschrift im Lebenslauf
+\newcommand*{\DefLebenslaufUnterschriftAusrichtung}{links}%
+\newcommand*{\LebenslaufUnterschriftAusrichtung}[1]{%
+    \ifthenelse{\equal{#1}{links}}{%
+        \renewcommand*{\DefLebenslaufUnterschriftAusrichtung}{#1}%
+    }{%
+        \ifthenelse{\equal{#1}{rechts}}{%
+            \renewcommand*{\DefLebenslaufUnterschriftAusrichtung}{#1}%
+        }{%
+            \errmsg{Ausrichtung darf sein: 'links','rechts'.}
+        }%
+    }%
+}%
+
 % Lebenslauf
 \newenvironment{Lebenslauf}{%
     \Abschnitt{\DefUeberschriftLebenslauf}
 }{%
     % Seite um eine Zeile vergroessern, damit Unterschrift besser draufpasst.
     \enlargethispage{2\baselineskip}%
-    \UnterschriftOrt%
+    \ifthenelse{\equal{\DefLebenslaufUnterschriftAusrichtung}{rechts}}{%
+        \begin{flushright}
+            \UnterschriftOrt%
+        \end{flushright}
+    }{%
+        \begin{flushleft}
+            \UnterschriftOrt%
+        \end{flushleft}
+    }%
     \clearpage
 }
 
