@@ -136,6 +136,7 @@
 \newcommand*{\DefUnterschriftenDateiParam}{}
 \newcommand*{\DefBewerberFoto}{}
 \newcommand*{\DefBewerberFotoParam}{}
+\newcommand*{\DefGitHubProfil}{}
 \newcommand*{\DefXingProfil}{}
 \newcommand*{\DefLinkedInProfil}{}
 
@@ -166,6 +167,9 @@
     \renewcommand*{\DefBewerberFotoParam}{height=#1}%
     \renewcommand*{\DefBewerberFoto}{#2}%
 }%
+\newcommand*{\GitHubProfil}[1]{%
+    \renewcommand*{\DefGitHubProfil}{GitHub: \href{https://github.com/#1/}{#1}}%
+}
 \newcommand*{\XingProfil}[1]{%
     \renewcommand*{\DefXingProfil}{Xing: \href{https://www.xing.com/profile/#1/}{#1}}%
 }
@@ -828,6 +832,7 @@
 
     \begin{spacing}{1.3}
         \AbsenderRechts[\large]
+        \rightline{\DefGitHubProfil}
         \rightline{\DefXingProfil}
         \rightline{\DefLinkedInProfil}
         \vspace{1.5\baselineskip}
