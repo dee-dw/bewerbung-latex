@@ -136,9 +136,9 @@
 \newcommand*{\DefUnterschriftenDateiParam}{}
 \newcommand*{\DefBewerberFoto}{}
 \newcommand*{\DefBewerberFotoParam}{}
-\newcommand*{\DefGitHubProfil}{}
 \newcommand*{\DefXingProfil}{}
 \newcommand*{\DefLinkedInProfil}{}
+\newcommand*{\DefGitHubProfil}{}
 
 % Definition zum Ueberschreiben der Daten zur eigenen Person
 \newcommand*{\VollerName}[1]{\renewcommand*{\DefVollerName}{#1}}
@@ -167,14 +167,14 @@
     \renewcommand*{\DefBewerberFotoParam}{height=#1}%
     \renewcommand*{\DefBewerberFoto}{#2}%
 }%
-\newcommand*{\GitHubProfil}[1]{%
-    \renewcommand*{\DefGitHubProfil}{GitHub: \href{https://github.com/#1/}{#1}}%
-}
 \newcommand*{\XingProfil}[1]{%
     \renewcommand*{\DefXingProfil}{Xing: \href{https://www.xing.com/profile/#1/}{#1}}%
 }
 \newcommand*{\LinkedInProfil}[1]{%
     \renewcommand*{\DefLinkedInProfil}{LinkedIn: \href{https://www.linkedin.com/in/#1}{#1}}%
+}
+\newcommand*{\GitHubProfil}[1]{%
+    \renewcommand*{\DefGitHubProfil}{GitHub: \href{https://github.com/#1/}{#1}}%
 }
 
 % Ausrichtung des Absenders
@@ -832,9 +832,9 @@
 
     \begin{spacing}{1.3}
         \AbsenderRechts[\large]
-        \rightline{\DefGitHubProfil}
         \rightline{\DefXingProfil}
         \rightline{\DefLinkedInProfil}
+		\rightline{\DefGitHubProfil}
         \vspace{1.5\baselineskip}
 
         \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
