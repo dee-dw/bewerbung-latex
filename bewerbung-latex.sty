@@ -832,9 +832,15 @@
 
     \begin{spacing}{1.3}
         \AbsenderRechts[\large]
-        \rightline{\DefXingProfil}
-        \rightline{\DefLinkedInProfil}
-        \rightline{\DefGitHubProfil}
+        \ifthenelse{\equal{\DefXingProfil}{}}{}{
+            \rightline{\DefXingProfil}
+        }
+        \ifthenelse{\equal{\DefLinkedInProfil}{}}{}{
+            \rightline{\DefLinkedInProfil}
+        }
+        \ifthenelse{\equal{\DefGitHubProfil}{}}{}{
+            \rightline{\DefGitHubProfil}
+        }
         \vspace{1.5\baselineskip}
 
         \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
