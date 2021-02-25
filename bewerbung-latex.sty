@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2021/02/25 v2.1]
+\ProvidesPackage{bewerbung-latex}[2021/02/25 v2.2]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -66,12 +66,13 @@
 }%
 
 % Neue Schrift setzen.
-\newcommand*{\SetzeSchrift}[2]{%
+\newcommand*{\SetzeSchrift}[3][12pt]{%
     \ifPDFTeX%
-        \RequirePackage{#1}
+        \RequirePackage{#2}
     \else%
-        \setmainfont{#2}
+        \setmainfont{#3}
     \fi%
+    \KOMAoption{fontsize=#1}%
 }%
 
 % Sprache einstellen

@@ -1,5 +1,9 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 25.02.2021 (Version 2.2) =
+
+* Optionale Schriftgroesse bei \SetzeSchrift (Anregung von nikilase)
+
 = 25.02.2021 (Version 2.1) =
 
 * Pull-Request von Dominik Gehlich gemergt (Ergänzung des Github-Profils)
