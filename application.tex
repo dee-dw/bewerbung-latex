@@ -46,20 +46,21 @@
 \VollerName{Eva Mustermann}
 \AbsenderStrasse{Musterweg 42}
 \AbsenderPLZOrt{12345 Berlin}
+%\AbsenderLand{Germany}             % optional
 % Als erstes Argument kann man beim Telefon eine Angabe
 % davor angeben. Der Wert darf auch leer sein.
 % Bei Telefonnummer ggf. Laenderkennung ergaenzen, wenn
 % die Telefonnummer nicht im Land des Empfaengers ist.
-\bwTelefon{}{0170 567890}
-%\bwTelefon{\Telefon}{+49 170 567890}
+\bwTelefon{}{0170 567890}         % optional
+%\bwTelefon{\Telefon}{+49 170 567890}         % optional
 % Als erstes Argument kann man bei der E-Mail eine Angabe
 % davor angeben (z.B. "E-Mail:". Der Wert darf auch leer sein.
 % Zusaetzlich kann optional eine Farbe angegeben werden,
 % mit der die Mailadresse dargestellt werden soll.
 % Standard ist "black"  als Farbe. Beispiel: \EMail[orange]{...}{...}
 % Achtung: Die Farbe wird fuer alle Links benutzt, damit es einheitlich aussieht.
-\bwEMail[Blue]{}{eva.mustermann@musterstadt.de}
-%\bwEMail{\Email}{eva.mustermann@musterstadt.de}
+\bwEMail[Blue]{}{eva.mustermann@musterstadt.de}         % optional
+%\bwEMail{\Email}{eva.mustermann@musterstadt.de}         % optional
 \Ort{Berlin}
 \Datum{\HeutigerTag}
 \Geburtstag{January 1, 1985}
@@ -95,11 +96,12 @@
 % Wenn der Nachname leergelassen oder auskommentiert wird,
 % wird die Anrede automatisch durch "Damen und Herren" ersetzt.
 \Firma{Hell AG}
-\Abteilung{Human Resources}            % optional
+\Abteilung{Human Resources}              % optional
 \AdressatVorname{Christina}              % optional
 \AdressatNachname{Funkel}                % ggf. optional
 \AnschriftStrasse{Route 66}
 \AnschriftPLZOrt{00000 Havenfuerst}
+%\AnschriftLand{GERMANY}                  % optional
 % Als optionales Argument hat der Titel eine Kurzform, die nur im Briefkopf
 % benutzt wird. Wenn das optionale Argument fehlt, wird die normale Angabe 
 % fuer Briefkopf und Anrede benutzt.

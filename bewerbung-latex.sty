@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2021/02/25 v2.2]
+\ProvidesPackage{bewerbung-latex}[2021/02/25 v2.3]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -49,7 +49,7 @@
 
 % Eigene Fusszeile festlegen, Kopfzeile leer
 \pagestyle{scrheadings}
-\cofoot{\DefVollerName, \DefAbsenderStrasse, \DefAbsenderPLZOrt, \DefTelefon}
+\cofoot{\DefVollerName, \DefAbsenderStrasse, \DefAbsenderPLZOrt, \DefAbsenderLand, \DefTelefon}
 \setkomafont{pagefoot}{\upshape\vspace*{0.2\baselineskip}}
 
 % Umschalten auf serifenlose Schrift.
@@ -124,6 +124,7 @@
 \newcommand*{\DefVollerName}{}
 \newcommand*{\DefAbsenderStrasse}{}
 \newcommand*{\DefAbsenderPLZOrt}{}
+\newcommand*{\DefAbsenderLand}{}
 \newcommand*{\DefTelefon}{}
 \newcommand*{\DefEMail}{}
 \newcommand*{\DefOrtDatum}{}
@@ -145,6 +146,7 @@
 \newcommand*{\VollerName}[1]{\renewcommand*{\DefVollerName}{#1}}
 \newcommand*{\AbsenderStrasse}[1]{\renewcommand*{\DefAbsenderStrasse}{#1}}
 \newcommand*{\AbsenderPLZOrt}[1]{\renewcommand*{\DefAbsenderPLZOrt}{#1}}
+\newcommand*{\AbsenderLand}[1]{\renewcommand*{\DefAbsenderLand}{#1}}
 \newcommand*{\bwTelefon}[2]{\renewcommand*{\DefTelefon}{#1{} #2}}
 \newcommand*{\bwEMail}[3][black]{%
     \hypersetup{urlcolor=#1}%
@@ -202,33 +204,45 @@
 
 % Absender
 \newcommand{\AbsenderRechts}[1][\normalsize]{%
-    \rightline{\textbf{#1\DefVollerName}}
-    \rightline{\DefAbsenderStrasse}
-    \rightline{\DefAbsenderPLZOrt}
-    \ifthenelse{\equal{\DefTelefon}{}}{%
-    }{%
-        \rightline{\DefTelefon}
+    \hspace*{\fill}\parbox[t][3cm]{7cm}{%
+        \rightline{\textbf{#1\DefVollerName}}
+        \rightline{\DefAbsenderStrasse}
+        \rightline{\DefAbsenderPLZOrt}
+        \ifthenelse{\equal{\DefAbsenderLand}{}}{%
+        }{%
+            \rightline{\DefAbsenderLand}
+        }%
+        \ifthenelse{\equal{\DefTelefon}{}}{%
+        }{%
+            \rightline{\DefTelefon}
+        }%
+        \rightline{\DefEMail}
+        \ifthenelse{\equal{\DefTelefon}{}}{%
+            \rightline{}
+        }{}%
     }%
-    \rightline{\DefEMail}
-    \ifthenelse{\equal{\DefTelefon}{}}{%
-        \rightline{}
-    }{}%
 }%
 \newcommand{\AbsenderLinks}[1][\normalsize]{%
-    \textbf{#1\DefVollerName}\\
-    \DefAbsenderStrasse\\
-    \DefAbsenderPLZOrt\\
-    \ifthenelse{\equal{\DefTelefon}{}}{%
-    }{%
-        \DefTelefon\\
+    \parbox[t][4cm]{7cm}{%
+        \textbf{#1\DefVollerName}\\
+        \DefAbsenderStrasse\\
+        \DefAbsenderPLZOrt\\
+        \ifthenelse{\equal{\DefAbsenderLand}{}}{%
+        }{%
+            \DefAbsenderLand\\
+        }%
+        \ifthenelse{\equal{\DefTelefon}{}}{%
+        }{%
+            \DefTelefon\\
+        }%
+        \DefEMail\\
+        \ifthenelse{\equal{\DefTelefon}{}}{%
+            \\
+        }{}%
     }%
-    \DefEMail\\
-    \ifthenelse{\equal{\DefTelefon}{}}{%
-        \\
-    }{}%
     % Ich weiss nicht, wieso ich hier eine Leerzeile mehr bekomme als
     % bei rechtsbuendig, aber ich korrigier das manuell.
-    \vspace{-\baselineskip}%
+    %\vspace{-\baselineskip}%
 }%
 \newcommand{\Absender}[1][\normalsize]{%
     \ifthenelse{\equal{\DefAbsenderAusrichtung}{links}}{%
@@ -247,6 +261,7 @@
 \newcommand*{\DefAdressatNachname}{}
 \newcommand*{\DefAnschriftStrasse}{}
 \newcommand*{\DefAnschriftPLZOrt}{}
+\newcommand*{\DefAnschriftLand}{}
 \newcommand*{\DefAnredeKopf}{}
 \newcommand*{\DefAnredeText}{ Damen und Herren}
 \newcommand*{\DefZweiterAdressatTitel}{}
@@ -275,6 +290,7 @@
 \newcommand*{\AdressatNachname}[1]{\renewcommand*{\DefAdressatNachname}{#1}}
 \newcommand*{\AnschriftStrasse}[1]{\renewcommand*{\DefAnschriftStrasse}{#1}}
 \newcommand*{\AnschriftPLZOrt}[1]{\renewcommand*{\DefAnschriftPLZOrt}{#1}}
+\newcommand*{\AnschriftLand}[1]{\renewcommand*{\DefAnschriftLand}{#1}}
 \newcommand*{\Anrede}[1]{%
     \ifthenelse{\equal{\DefAdressatNachname}{}}{%
         \renewcommand*{\DefAnredeKopf}{}%
@@ -420,6 +436,9 @@
         }%
         \DefAnschriftStrasse\\
         \DefAnschriftPLZOrt\\
+        \ifthenelse{\equal{\DefAnschriftLand}{}}{}{%
+            \DefAnschriftLand\\
+        }%
     }%
 }%
 

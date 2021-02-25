@@ -1,5 +1,9 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 25.02.2021 (Version 2.3) =
+
+* Optionale Angabe des Landes bei Absender und Anschrift (Anregung von Anita)
+
 = 25.02.2021 (Version 2.2) =
 
 * Optionale Schriftgroesse bei \SetzeSchrift (Anregung von nikilase)
