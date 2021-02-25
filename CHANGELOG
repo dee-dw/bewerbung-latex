@@ -1,5 +1,10 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 25.02.2021 (Version 2.1) =
+
+* Pull-Request von Dominik Gehlich gemergt (Ergänzung des Github-Profils)
+* Bugfix: Definierte Profile (Xing, LinkedIn etc.) verschieben andere Angaben nicht mehr (Idee von Dominik Gehlich)
+
 = 30.10.2019 (Version 2.0) =
 
 * Bugfix: Abstaende mit Blocksatz sind jetzt identisch zu Flattersatz (Hinweis an DK)
