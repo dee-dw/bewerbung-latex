@@ -832,15 +832,29 @@
 
     \begin{spacing}{1.3}
         \AbsenderRechts[\large]
-        \ifthenelse{\equal{\DefXingProfil}{}}{}{
-            \rightline{\DefXingProfil}
-        }
-        \ifthenelse{\equal{\DefLinkedInProfil}{}}{}{
-            \rightline{\DefLinkedInProfil}
-        }
-        \ifthenelse{\equal{\DefGitHubProfil}{}}{}{
-            \rightline{\DefGitHubProfil}
-        }
+
+        % Profile anzeigen, wenn nicht leer.
+        \ifthenelse{\equal{\DefXingProfil}{}}{}{%
+            \rightline{\DefXingProfil}%
+        }%
+        \ifthenelse{\equal{\DefLinkedInProfil}{}}{}{%
+            \rightline{\DefLinkedInProfil}%
+        }%
+        \ifthenelse{\equal{\DefGitHubProfil}{}}{}{%
+            \rightline{\DefGitHubProfil}%
+        }%
+
+        % Leerzeilen für leere Profile am Ende des Profilblocks ergänzen.
+        \ifthenelse{\equal{\DefXingProfil}{}}{%
+            \rightline{}%
+        }{}%
+        \ifthenelse{\equal{\DefLinkedInProfil}{}}{%
+            \rightline{}%
+        }{}%
+        \ifthenelse{\equal{\DefGitHubProfil}{}}{%
+            \rightline{}%
+        }{}%
+
         \vspace{1.5\baselineskip}
 
         \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
