@@ -1,5 +1,13 @@
 CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
+= 12.02.2026 (Version 2.4) =
+
+* Bugfix #11: pdfcreator nicht als „Vorname Nachname“ setzen, da hiermit nicht die Person, sondern die Engine gemeint ist (Hinweis von @Schubladenzieher)
+
+= 23.05.2022 (Version 2.3a) = 
+
+* Bugfix: Behebe Compilerfehler in \SetzeSchrift (Merge von @mwenzkowski)
+
 = 25.02.2021 (Version 2.3) =
 
 * Optionale Angabe des Landes bei Absender und Anschrift (Anregung von Anita)
@@ -15,7 +23,7 @@ CHANGELOG für Bewerbungsvorlage "bewerbung-latex" von Dominik Wagenführ
 
 = 30.10.2019 (Version 2.0) =
 
-* Bugfix: Abstaende mit Blocksatz sind jetzt identisch zu Flattersatz (Hinweis an DK)
+* Bugfix: Abstaende mit Blocksatz sind jetzt identisch zu Flattersatz (Hinweis von DK)
 
 = 30.10.2019 (Version 1.9) =
 

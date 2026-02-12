@@ -3,7 +3,7 @@
 % "Namensnennung-Weitergabe unter gleichen Bedingungen 4.0 International"
 % [http://creativecommons.org/licenses/by-sa/4.0/deed.de].
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesPackage{bewerbung-latex}[2021/02/25 v2.3]
+\ProvidesPackage{bewerbung-latex}[2026/02/12 v2.4]
 \DeclareOption*{\PassOptionToClass{scrartcl}{\CurrentOption}}
 \ExecuteOptions{final,indexauto}
 \ProcessOptions*\relax
@@ -828,15 +828,13 @@
     \ifthenelse{\equal{\DefSprache}{British} \OR \equal{\DefSprache}{American}}{%
         \hypersetup{%
             pdftitle={Application for \DefFirma},
-            pdfauthor={\DefVollerName},
-            pdfcreator={\DefVollerName}
+            pdfauthor={\DefVollerName}
         }%
         \addcontentsline{toc}{section}{Cover letter}%
     }{%
         \hypersetup{%
             pdftitle={Bewerbung bei \DefFirma},
-            pdfauthor={\DefVollerName},
-            pdfcreator={\DefVollerName}
+            pdfauthor={\DefVollerName}
         }%
         \addcontentsline{toc}{section}{Anschreiben}%
     }%
